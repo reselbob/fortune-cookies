@@ -32,7 +32,7 @@ const addUser = async (user)=>{
 };
 
 const updateUsers =  async (user) =>{
-    const arr = await getUsersSync();
+    const arr = getUsersSync();
     arr.push(user);
     const filespec = path.join(__dirname, dataFileName);
     await objectToFile(filespec,arr);

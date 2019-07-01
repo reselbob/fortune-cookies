@@ -5,7 +5,7 @@ const it = require('mocha').it;
 const faker = require('faker');
 
 
-const {addUser,getUsers} = require('../users');
+const {addUser,getUsersSync} = require('../users');
 
 const createFakeUser = () => {
     const firstName = faker.name.firstName();
@@ -30,12 +30,7 @@ describe('User Tests: ', () => {
     });
 
     it('Can get users', function(done){
-        const users = getUsers()
-            .then(users => {
-                expect(users).to.be.an('array');
-                done();
-            })
-            .catch(done);
-
+        const users = getUsersSync();
+        expect(users).to.be.an('array');
     });
 });
