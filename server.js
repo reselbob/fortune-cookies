@@ -79,7 +79,3 @@ loadScheduleItems(globalSchedulerArray)
     });
 
 
-// START THE SERVER
-// =============================================================================
-
-
