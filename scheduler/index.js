@@ -5,6 +5,8 @@ const {send} = require('../sender');
 
 /*
 config = {
+  firstName:string
+  lastname:string
   userId:string;
   period: string, default 1 second
 }
@@ -16,15 +18,15 @@ const createScheduleItem = async (config, globalSchedulerArray) => {
     const period = config.period || '* * * * * *';
     const job = new CronJob(period, async function() {
         const obj = await getRandomFortune();
-        send(config.id,obj.fortune);
+        send(config,obj.fortune);
     }, null, true, 'America/Los_Angeles');
     job.start();
 
-    const obj = {id: config.id, job}
+    config.job = job;
     //the the global scheduler array is present, then add the item to the array
-    if(Array.isArray(globalSchedulerArray))globalSchedulerArray.push(obj);
+    if(Array.isArray(globalSchedulerArray))globalSchedulerArray.push(config);
 
-    return obj;
+    return config;
 };
 
 const loadScheduleItems = async (globalSchedulerArray)=>{
