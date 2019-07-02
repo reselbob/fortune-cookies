@@ -6,7 +6,7 @@ const express    = require('express');
 const bodyParser = require('body-parser');
 const app        = express();
 const morgan     = require('morgan');
-const {loadScheduleItems} = require('./scheduler');
+const {loadScheduleItems, stopScheduleItems} = require('./scheduler');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
@@ -42,15 +42,15 @@ router.route('/users')
     });
 
 
-router.route('/users/:userID')
+router.route('/users/:userId')
     .get(function(req, res) {
-        res.json({ message: 'Not Implemented: GET /users/:userID' });
+        res.json({ message: `Not Implemented: GET /users/:userID on userId: ${req.params.userId}` });
     })
     .put(function(req, res) {
-        res.json({ message: 'Not Implemented: PUT /users/:userID' });
+        res.json({ message: `Not Implemented: PUT /users/:userID on userId: ${req.params.userId}` });
     })
     .delete(function(req, res) {
-        res.json({ message: 'Not Implemented: DELETE /users/:userID' });
+        res.json({ message: `Not Implemented: DELETE /users/:userID on userId: ${req.params.userId}` });
     });
 
 router.route('/reports/users')
@@ -69,13 +69,23 @@ router.route('/reports/usage')
 app.use('/api', router);
 
 //Load in the existing cron jobs
-const globalSchedulerArray = [];
+let globalSchedulerArray = [];
+
 
 loadScheduleItems(globalSchedulerArray)
     .then(arr =>{
-        const server = app.listen(port);
-        console.log('Listening on port: ' + port);
-        module.exports = server;
+        console.log(`Fortune cookies running at ${new Date()}`)
     });
 
+const server = app.listen(port);
+const shutdown = ()=>{
+    stopScheduleItems(globalSchedulerArray)
+        .then(() => {
+            console.log(`Server shutting down at ${new Date()}`);
+            server.close()
+        })
+}
+
+console.log('Listening on port: ' + port);
+module.exports = {server, shutdown};
 

@@ -38,4 +38,10 @@ const loadScheduleItems = async (globalSchedulerArray)=>{
     return globalSchedulerArray;
 };
 
-module.exports = {createScheduleItem,loadScheduleItems};
+const stopScheduleItems = async (globalSchedulerArray)=>{
+    for(const user of globalSchedulerArray){
+        await user.job.stop();
+    }
+};
+
+module.exports = {createScheduleItem,loadScheduleItems, stopScheduleItems};
