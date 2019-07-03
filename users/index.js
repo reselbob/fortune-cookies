@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
+const { promisify } = require('util');
 /*
 user = {
   id: uuid
@@ -13,7 +13,7 @@ user = {
 */
 
 const objectToFile = async (filespec, data) =>{
-    const writeFile = util.promisify(fs.writeFile);
+    const writeFile = promisify(fs.writeFile);
     return await writeFile(filespec, JSON.stringify(data),"utf8");
 };
 
@@ -49,4 +49,11 @@ const getUsersSync = () =>{
     return arr;
 };
 
-module.exports = {getUsersSync, addUser};
+const getUsers = async () =>{
+    const readFileAsync = promisify(fs.readFile);
+
+    const filespec = path.join(__dirname, dataFileName);
+    const reslt = await readFileAsync(filespec, 'utf-8');
+    return JSON.parse(reslt);
+};
+module.exports = {getUsersSync, addUser, getUsers};

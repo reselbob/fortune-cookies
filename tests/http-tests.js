@@ -6,6 +6,7 @@ const describe = require('mocha').describe;
 const it = require('mocha').it;
 
 const {server,shutdown} = require('../server');
+const {createFakeUser} =  require('./test-utils');
 
 describe('HTTP Tests: ', () => {
     after(function () {
@@ -23,14 +24,51 @@ describe('HTTP Tests: ', () => {
             .catch(done);
     });
 
+    it('Can access GET /api/fortunes', function(done){
+        //Go get all the lists
+        supertest(server)
+            .get('/api/fortunes')
+            .set('Accept', 'application/json')
+            .then((res) => {
+                expect(res.body).to.be.an('array');
+                done();
+            })
+            .catch(done);
+    });
+
+    it('Can access POST /api/fortunes', function(done){
+        //Go get all the lists
+        supertest(server)
+            .post('/api/fortunes')
+            .set('Accept', 'application/json')
+            .then((res) => {
+                expect(res.body.message).to.be.a('string');
+                done();
+            })
+            .catch(done);
+    });
+
     it('Can access GET /api/users', function(done){
         //Go get all the lists
         supertest(server)
             .get('/api/users')
             .set('Accept', 'application/json')
             .then((res) => {
-                expect(res.body.message).to.be.a('string');
-                //process.exit(0)
+                expect(res.body).to.be.an('array');
+                done();
+            })
+            .catch(done);
+    });
+
+    it('Can access POST /api/users', function(done){
+        const user = createFakeUser();
+        user.period = '*/2 * * * * *' //run every two seconds
+        supertest(server)
+            .post('/api/users')
+            .set('Accept', 'application/json')
+            .send(user)
+            .then((res) => {
+                expect(res.body).to.be.an('object');
                 done();
             })
             .catch(done);
@@ -43,7 +81,6 @@ describe('HTTP Tests: ', () => {
             .set('Accept', 'application/json')
             .then((res) => {
                 expect(res.body.message).to.be.a('string');
-                //process.exit(0)
                 done();
             })
             .catch(done);

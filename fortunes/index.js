@@ -24,4 +24,8 @@ const getRandomFortune = async ()=>{
     return fortunes[idx];
 };
 
-module.exports = {getRandomFortune};
+const getFortunes = async ()=>{
+    return loadFortunesSync();
+};
+
+module.exports = {getRandomFortune,getFortunes};
