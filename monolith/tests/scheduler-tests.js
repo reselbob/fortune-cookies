@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const describe = require('mocha').describe;
 const it = require('mocha').it;
 
-const {getScheduleItem} = require('../scheduler');
+const {getScheduleItem} = require('../scheduler/index');
 
 describe('Scheduler Tests Tests: ', () => {
     it('Can run schedulerItem', function (done) {

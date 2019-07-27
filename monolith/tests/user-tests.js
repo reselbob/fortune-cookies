@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const describe = require('mocha').describe;
 const it = require('mocha').it;
 const {createFakeUser} =  require('./test-utils');
-const {addUser,getUsersSync} = require('../users');
+const {addUser,getUsersSync} = require('../users/index');
 
 
 

@@ -6,9 +6,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const morgan = require('morgan');
-const {loadScheduleItems, stopScheduleItems,createScheduleItem} = require('./scheduler');
-const {getFortunes} = require('./fortunes');
-const {getUsers, addUser} = require('./users');
+const {loadScheduleItems, stopScheduleItems,createScheduleItem} = require('./monolith/scheduler');
+const {getFortunes} = require('./monolith/fortunes');
+const {getUsers, addUser} = require('./monolith/users');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console

@@ -1,7 +1,7 @@
 const CronJob = require('cron').CronJob;
-const {getRandomFortune} = require('../fortunes');
-const {getUsersSync} = require('../users');
-const {send} = require('../sender');
+const {getRandomFortune} = require('../fortunes/index');
+const {getUsersSync} = require('../users/index');
+const {send} = require('../sender/index');
 
 /*
 config = {

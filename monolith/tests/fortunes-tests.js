@@ -4,7 +4,7 @@ const describe = require('mocha').describe;
 const it = require('mocha').it;
 
 
-const {getRandomFortune} = require('../fortunes');
+const {getRandomFortune} = require('../fortunes/index');
 
 describe('Fortunes Tests: ', () => {
     it('Can get random fortune', function(done){

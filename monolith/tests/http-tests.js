@@ -5,7 +5,7 @@ const expect = require('chai').expect;
 const describe = require('mocha').describe;
 const it = require('mocha').it;
 
-const {server,shutdown} = require('../server');
+const {server,shutdown} = require('../../server');
 const {createFakeUser} =  require('./test-utils');
 
 describe('HTTP Tests: ', () => {
