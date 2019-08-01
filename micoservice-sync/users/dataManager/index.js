@@ -3,12 +3,17 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const _ = require('lodash');
+const axios = require('axios');
+const {getSchedulerApiUrl} = require('../dependencies');
 /*
 user = {
   id: uuid
   firstName: string,
   lastName: string,
   email: string
+  phone: string
+  target: string
+  interval: string
 }
 */
 
@@ -37,9 +42,17 @@ const addUser = async (user)=>{
     if(!user.firstName) throw new Error('No first name, please provide one.');
     if(!user.lastName) throw new Error('No last name, please provide one.');
     if(!user.email) throw new Error('No email, please provide one.');
+    if(!user.phone) throw new Error('No phone, please provide one.');
+    if(!user.target) throw new Error('No target, please provide one.');
+    if(!user.interval) throw new Error('No interval, please provide one.');
     user.id = uuidv4();
     //add the user to data store
     await updateUsers(user);
+
+    //send the user registration to the scheduler
+    const url = getSchedulerApiUrl();
+    //TODO: makes sure the response is good
+    const res = await axios.post(url, user);
 
     return user;
 };

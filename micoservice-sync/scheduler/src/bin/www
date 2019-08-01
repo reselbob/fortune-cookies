@@ -7,14 +7,20 @@ const app = require('../api');
 const http = require('http');
 const config = require('../lib/config');
 const logger = require('../lib/logger');
+const {validateDependencyApiUrls} = require('../../dependencies');
 
 const log = logger(config.logger);
+
+global.runningScheduleItems = [];
 
 /**
  * Get port from environment and store in Express.
  */
-const port = normalizePort(config.api.port || '3000');
+const port = normalizePort(process.env.SCHEDULER_PORT || '3000');
 app.set('port', port);
+
+//validate the existence of the URLs of the dependency services
+validateDependencyApiUrls();
 
 /**
  * Create HTTP server.

@@ -38,7 +38,7 @@ router.post('/', async (req, res, next) => {
     console.log(err);
     return res.status(500).send({
       status: 500,
-      error: 'Server Error'
+      error: err.message
     });
   }
 });

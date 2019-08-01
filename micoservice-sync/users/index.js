@@ -6,6 +6,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const morgan = require('morgan');
+const {validateDependencyApiUrls} = require('./dependencies');
 
 const {getUsers, addUser, getUsersSync, getUser, deleteUser, updateUser} = require('./dataManager');
 
@@ -64,12 +65,15 @@ router.route('/:userId')
 // REGISTER OUR ROUTES -------------------------------
 app.use('/', router);
 
+//Make sure all the dependencies are in place
+validateDependencyApiUrls();
+
 const server = app.listen(port);
 const shutdown = () => {
     console.log(`User Server shutting down at ${new Date()}`);
     server.close()
 };
 
-console.log('Listening on port: ' + port);
+console.log(`Users started at ${new Date()} and listening on port ${port}`);
 module.exports = {server, shutdown};
 

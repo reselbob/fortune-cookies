@@ -4,30 +4,22 @@ const it = require('mocha').it;
 const should = require('chai').should();
 const faker = require('faker');
 const supertest = require('supertest');
-let app;
-const fctestils = require('fc-testutils');
-const {setTargetEnvVars, createSenderMessage} = require('./testutils');
+const {server,shutdown} = require('../index');
+const {createFakeUser} = require('test-utils');
 
-describe('Sender API Tests: ', () => {
-    before(() =>{
-        setTargetEnvVars();
-        fctestils.testServer;
-        app = require('../index');
-
-
-    })
-
+describe('API Tests: ', () => {
     after(function () {
-        app.shutdown();
-        fctestils.stopServer();
+        shutdown();
     });
 
     it('Can  POST to sender', function(done){
-        const msg = createSenderMessage();
-        supertest(app.server)
+        const payload = createFakeUser();
+        payload.message = faker.lorem.words(3)
+        const obj= {target: 'FACEBOOK', payload};
+        supertest(server)
             .post('/')
             .set('Accept', 'application/json')
-            .send(msg)
+            .send(obj)
             .then((res) => {
                 expect(res.body).to.be.an('object');
                 done();

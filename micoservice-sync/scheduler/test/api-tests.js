@@ -5,27 +5,61 @@ const it = require('mocha').it;
 const should = require('chai').should();
 const _ = require('lodash');
 const supertest = require('supertest');
-const {server,shutdown} = require('../src/bin/www');
-const {createFakeUser, getRandomIntFromInterval} =  require('./test-utils');
+//const {server,shutdown} = require('../src/bin/www');
+const {createFakeUser, getRandomIntFromInterval, getDependencies} =  require('./test-utils');
+let fctestils;
+
+let app;
+let shutdown;
 
 describe('API Tests: ', () => {
+  before(() => {
+    process.env.TEST_UTILS_PORT = 5001;
+    fctestils = require('fc-testutils');
+    fctestils.testServer;
+    fctestils.setSenderTargetEnvVars();
+
+
+    process.env.SENDER_PORT = 5002;
+    process.env.SENDER_API_URL = `http://localhost:${process.env.SENDER_PORT}`;
+
+    process.env.FORTUNE_PORT = 5004;
+    process.env.FORTUNE_API_URL = `http://localhost:${process.env.FORTUNE_PORT}`;
+
+    process.env.SCHEDULER_PORT = 5005;
+
+
+
+    app = require('../src/bin/www');
+    app.server;
+
+  })
   after(function () {
-    shutdown();
+    app.shutdown();
+    fctestils.shutdown();
+
+    process.env.SENDER_API_URL = null;
+    process.env.FORTUNE_API_URL = null;
+    process.env.SCHEDULER_PORT = null;
+    process.env.TEST_UTILS_PORT = null;
   });
 
   it('Can GET ScheduleItems', function(done){
     //Go get all the lists
-    supertest(server)
+    supertest(app.server)
       .get('/ScheduleItems')
       .set('Accept', 'application/json')
       .then((res) => {
         expect(res.body).to.be.an('array');
         done();
       })
-      .catch(done);
+      .catch(err => {
+        console.log(err);
+        done(err);
+      });
   });
 
-  it('Can  POST user', function(done){
+  it('Can  POST schedlerItem', function(done){
     const user = createFakeUser();
     const scheduleItem ={};
     scheduleItem.firstName  = user.firstName;
@@ -35,7 +69,7 @@ describe('API Tests: ', () => {
     scheduleItem.target = 'SMS';
     scheduleItem.interval =  '*/2 * * * * *' //run every two seconds
 
-    supertest(server)
+    supertest(app.server)
       .post('/ScheduleItems')
       .set('Accept', 'application/json')
       .send(scheduleItem)
@@ -52,4 +86,17 @@ describe('API Tests: ', () => {
       .catch(done);
   });
 
+  it('Cannot  POST scheduler', function(done){
+    const user = createFakeUser();
+    const scheduleItem ={};
+    supertest(server)
+      .post('/ScheduleItems')
+      .set('Accept', 'application/json')
+      .send(user)
+      .then((res) => {
+        expect(res.status).to.be.equal(500);
+        done();
+      })
+      .catch(done);
+  });
 });

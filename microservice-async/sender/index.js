@@ -6,8 +6,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const morgan = require('morgan');
-
-const {getRandomFortune} = require('./dataManager');
+const {validateTopics,sendToTopic, topics} = require('./targets');
+const {validateSenderMessage} = require('validators');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
@@ -16,7 +16,7 @@ app.use(morgan('dev')); // log requests to the console
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-const port = process.env.FORTUNE_PORT || 3000; // set our port
+const port = process.env.PORT || 3000; // set our port
 
 // create our router
 const router = express.Router();
@@ -29,21 +29,33 @@ router.use(function (req, res, next) {
 });
 
 router.route('/')
-    .get( async (req, res) => {
-        //const fortune = await getRandomFortune();
-        res.json(await getRandomFortune());
-    });
+    .post = async(req, res) => {
+        validateSenderMessage(req.body);
+        console.log(`Sending ${JSON.stringify(req.body)} at ${new Date()}`);
+        const result = await sendToTopic(req.body.topic, req.body.payload);
+        res.statusCode = 200;
+        res.json({result });
+    };
+
+router.route('/topics')
+    .get = async (req, res) => {
+        console.log(`Returning topics ${JSON.stringify(topics)} at ${new Date()}`);
+        res.statusCode = 200;
+        res.json({topics });
+    };
 
 
 // REGISTER OUR ROUTES -------------------------------
 app.use('/', router);
 
+validateTopics();
+
 const server = app.listen(port);
 const shutdown = () => {
-    console.log(`Fortunes Server shutting down at ${new Date()}`);
+    console.log(`Sender Server shutting down at ${new Date()}`);
     server.close()
 };
 
-console.log(`Fortunes started at ${new Date()} and listening on port ${port}`);
+console.log('Listening on port: ' + port);
 module.exports = {server, shutdown};
 

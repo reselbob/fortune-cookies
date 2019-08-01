@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://localhost:3000/vi
+  - url: http://localhost:3000/
 paths:
   /ScheduleItems:
     get:
@@ -30,7 +30,7 @@ paths:
               schema:
                 type: string
           content:
-            application/json:    
+            application/json:
               schema:
                 $ref: "#/components/schemas/ScheduleItems"
         default:
@@ -55,7 +55,7 @@ paths:
         '201':
           description: An KnownScheduleItem
           content:
-            application/json:    
+            application/json:
               schema:
                 $ref: "#/components/schemas/KnownScheduleItem"
         default:
@@ -156,7 +156,7 @@ components:
         $ref: "#/components/schemas/KnownScheduleItem"
     ScheduleItemTarget:
       type: string
-      enum: 
+      enum:
         - TWITTER
         - FACEBOOK
         - INSTAGRAM
