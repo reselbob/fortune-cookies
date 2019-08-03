@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortunes
+  labels:
+    app: fortunes
+spec:
+  containers:
+  - name: fortunes
+    image: localhost:5000/fortunes
+    ports:
+      - name: app
+        containerPort: 3000
