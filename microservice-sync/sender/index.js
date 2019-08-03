@@ -21,10 +21,20 @@ const axios = require('axios');
 
 const {validateTargets, getTargetApiUrl} = require('./targets');
 
+const getFortune = async () => {
+    const url = getDependencyApiUrl('FORTUNE');
+    const res = await axios.get(url);
+    return res.body.fortune;
+};
+
 const send =  async (message) => {
     if(!message.target) throw new Error('no target provided');
     const target = getTargetApiUrl(message.target);
     if (!target) throw new Error(`${message.target} is not a valid target`);
+
+    //Add on the fortune
+    message.fortune = await getFortune();
+
     const url = getTargetApiUrl(message.target);
     return axios.post(url,message.payload)
         .then(response => {
@@ -34,7 +44,6 @@ const send =  async (message) => {
         .catch(error => {
             console.log(error);
         });
-
 };
 
 // configure app

@@ -22,13 +22,13 @@ const objectToFile = async (filespec, data) => {
 };
 
 const dataFileName = 'scheduleItems.json';
-
+/*
 const getFortune = async () => {
   const url = getDependencyApiUrl('FORTUNE');
   const res = await axios.get(url);
   return res.body.fortune;
 };
-
+*/
 const postToSender = async (scheduleItem) => {
   const url = getDependencyApiUrl('SENDER_API_URL');
   const res = await axios.post(url, scheduleItem);
@@ -39,7 +39,7 @@ const postToSender = async (scheduleItem) => {
 
 const createScheduleItem = async (ScheduleItem) => {
   const period = ScheduleItem.period || '* * * * * *'; //every second is the default
-  ScheduleItem.fortune = await getFortune();
+  //ScheduleItem.fortune = await getFortune();
   const job = new CronJob(period, async function () {
     console.log({postingToSender: ScheduleItem, time: new Date().toString()});
     await postToSender(ScheduleItem);
@@ -69,7 +69,7 @@ const validateScheduleItem = (ScheduleItem) => {
 };
 
 const addScheduleItem = async (ScheduleItem) => {
-  validateScheduleItem;
+  validateScheduleItem(ScheduleItem);
 
   ScheduleItem.id = uuidv4();
   //add the ScheduleItem to data store

@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: scheduler
+  labels:
+    app: scheduler
+spec:
+  containers:
+  - name: fortunes
+    image: localhost:5000/scheduler
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: FORTUNE_API_URL
+        value: "http://fortunes/"
+      - name: SENDER_API_URL
+        value: "http://sender/"

@@ -11,24 +11,21 @@ const getResponseObject = (req, method) =>{
     obj.message = `Hello from TestUtilsServer, target ${req.query.target}, method ${obj.method}`;
 
     return obj;
-
-}
+};
 
 //optional command line param to declare target is, ?target=value
 app.get("/", (req, res, next) => {
     res.status = 200;
-    res.json(getResponseObject(req, 'GET'));
-
+    const str = JSON.stringify(getResponseObject(req, 'GET'));
+    res.send(str);
 });
 
 //optional command line param to declare target is, ?target=value
 app.post("/", (req, res, next) => {
     res.status = 200;
-    res.json(getResponseObject(req, 'POST'));
-
+    const str = JSON.stringify(getResponseObject(req, 'POST'));
+    res.send(str);
 });
-
-
 
 const server = app.listen(port);
 console.log(`TestUtils Server started at ${new Date()} and listening on port ${port}`);

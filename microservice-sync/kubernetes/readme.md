@@ -33,11 +33,9 @@ and push it to the local Docker Registry.
 
 `docker push localhost:5000/fortunes`
 
-Do a test run to make sure you can access the local Docker Repository
+**Step 6:** Do a test run to make sure you can access the local Docker Repository
 
 `docker run -d -p 3000:3000 localhost:5000/fortunes3000`
-
-`kubectl run fortunes --image=localhost:5000/fortunes --port=3000`
 
 **Step 7:** Build a `testconsumer` container image and push it to the  local Docker Registry.
 
@@ -48,4 +46,31 @@ Do a test run to make sure you can access the local Docker Repository
 `docker tag testconsumer localhost:5000/testconsumer`
 
 `docker push localhost:5000/testconsumer`
+
+**Step 8:** Create `fortunes` pod and service
+
+`cd ../kubenetes/manifests`
+
+`kubectl apply -f fortunes-pod.yaml`
+
+`kubectl apply -f fortunes-service.yaml`
+
+**Step 9:** Create `testconsumer` pod and service
+
+`kubectl apply -f testconsumer-pod.yaml`
+
+`kubectl apply -f testconsumer-service.yaml`
+
+**Step 10:** Get the `url` of the `testconsumer` services
+
+`minikube service hello-minikube --url`
+
+This will return a `url` similar the following:
+
+`http://172.17.0.33:30655`
+
+**Step 11:** Test the deployment by calling the service, `testconsumer` using `curl`.
+
+`curl <YOUR_URL>`
+
 
