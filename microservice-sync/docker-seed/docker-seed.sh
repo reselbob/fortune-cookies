@@ -27,21 +27,21 @@ docker tag sender localhost:5000/sender
 docker push localhost:5000/sender
 
 #Create the targetmockserver container image
-docker build -t targetmockserver -f ../sender/targetmockserver .
+docker build -t targetmockserver -f ../targetmockserver/Dockerfile .
 
 docker tag targetmockserver localhost:5000/targetmockserver
 
 docker push localhost:5000/targetmockserver
 
 #Create the testconsumer container image
-docker build -t testconsumer -f ../sender/testconsumer .
+docker build -t testconsumer -f ../testconsumer/Dockerfile .
 
 docker tag testconsumer localhost:5000/testconsumer
 
 docker push localhost:5000/testconsumer
 
 #Create the users container image
-docker build -t users -f ../sender/users .
+docker build -t users -f ../users/Dockerfile .
 
 docker tag users localhost:5000/users
 
