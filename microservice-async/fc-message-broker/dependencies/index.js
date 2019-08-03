@@ -1,7 +1,7 @@
 const validateDependencies = () => {
     const missingTargets = [];
 
-    if(!process.env.FC_BROKER_URL) missingTargets.push('FC_BROKER_URL');
+    if(!process.env.FC_MESSAGE_BROKER_URL) missingTargets.push('FC_MESSAGE_BROKER_URL');
 
 
     if(missingTargets.length > 0){
@@ -10,8 +10,9 @@ const validateDependencies = () => {
     }
 };
 
-const getBrokerUrl = () => {
-    return process.env.FC_BROKER_URL
+const getMessageBrokerUrl = () => {
+    return process.env.FC_MESSAGE_BROKER_URL;
 };
 
-module.exports = {validateDependencies,getBrokerUrl}
+module.exports = {validateDependencies,getMessageBrokerUrl};
+

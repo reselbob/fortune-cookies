@@ -24,14 +24,17 @@ const router = express.Router();
 // middleware to use for all requests
 router.use(function (req, res, next) {
     // do logging
-    console.log({request:req});
+    console.log({response:res});
     next();
 });
 
 router.route('/')
     .get( async (req, res) => {
         //const fortune = await getRandomFortune();
-        res.json(await getRandomFortune());
+        const fortune = await getRandomFortune();
+        const str = JSON.stringify(fortune);
+        console.log(`Sending fortune ${str} at ${new Date()}`)
+        res.send(str );
     });
 
 

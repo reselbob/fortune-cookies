@@ -1,52 +1,36 @@
-const amqp = require('amqp-connection-manager');
-const {validateDependencies, getBrokerUrl} = require('../dependencies');
-
+const amqp = require('amqplib');
+const {getMessageBrokerUrl, validateDependencies} = require('../dependencies');
 
 class Publisher {
     constructor(topic) {
+        if(!topic) throw new Error('No topic defined. It\'s required. So declare one!')
+
         validateDependencies();
 
-        this.topic = topic;
-        this.url = getBrokerUrl();
+        const exchange = topic;
+        const url = getMessageBrokerUrl();
 
+        this.sendMessage = async (message) => {
+            amqp.connect(url).then(function(conn) {
+                return conn.createChannel().then(function(ch) {
+                    const ok = ch.assertExchange(exchange, 'fanout', {durable: false})
 
-        const EXCHANGE_NAME = this.topic;
-
-        // Create a connection manager
-        const connection = amqp.connect([this.url]);
-        connection.on('connect', () => console.log('Connected!'));
-        connection.on('disconnect', err => console.log('Disconnected.', err.stack));
-
-        // Create a channel wrapper
-        const channelWrapper = connection.createChannel({
-            json: true,
-            setup: channel => channel.assertExchange(EXCHANGE_NAME, 'topic')
-        });
-
-        // Send messages until someone hits CTRL-C or something goes wrong...
-        this.sendMessage = (message) => {
-            channelWrapper.publish(EXCHANGE_NAME, JSON.stringify(message), {time: Date.now()}, {
-                contentType: 'application/json',
-                persistent: true
-            })
-                .then((result) => {
-                    console.log({result});
-                    return result;
-                })
-                .catch(err => {
-                    console.log("Message was rejected:", err.stack);
-                    channelWrapper.close();
-                    connection.close();
-                });
-        };
-
-    };
-
-   publish (message) {
-        this.sendMessage(message);
+                    return ok.then(function() {
+                        ch.publish(exchange, '', Buffer.from(message));
+                        console.log(" [x] Sent '%s'", message);
+                        return ch.close();
+                    });
+                }).finally(function() { conn.close(); });
+            }).catch(console.warn);
+        }
     }
-}
 
+    async publish (message) {
+        await this.sendMessage(message);
+        return {status:'OK', message}
+    }
+
+}
 module.exports = {
     Publisher: Publisher
 };

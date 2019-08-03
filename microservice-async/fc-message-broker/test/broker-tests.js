@@ -13,30 +13,35 @@ const topic = 'reselbobTopic01';
 const queue = 'reselbobQueue01';
 
 
-
 describe('Publisher Tests: ', () => {
-    afterEach(() =>{
+    afterEach(() => {
         wait(1000);
-    })
+    });
 
-    it('Can  Publish message', function(done){
-        const message = {sendDate: new Date(), data: faker.lorem.words(3)};
+    it('Can  Publish message', function (done) {
+        const message = JSON.stringify({sendDate: new Date(), data: faker.lorem.words(3)});
         const publisher = new Publisher(topic);
         publisher.publish(message);
         done();
     });
 
-    it('Can  Subscribe to Topic and get message', function(done){
+    it('Can  Subscribe to Topic and get message', async function(done){
+        this.timeout(15000);
+        let subscriber;
         const onMessageFunction = (data, channelWrapper) => {
-            const message = JSON.parse(data.content.toString());
+            const message = data.content.toString();
             console.log("subscriber: got message", message);
-            channelWrapper.ack(data);
+            //channelWrapper.ack(data);
+            subscriber.close();
             done();
         };
-        const subscriber = new Subscriber(topic,queue, onMessageFunction);
-        const message = {sendDate: new Date(), data: faker.lorem.words(3)};
-        const publisher = new Publisher(topic);
-        publisher.publish(message);
-    });
+        subscriber = new Subscriber(topic,queue, onMessageFunction);
+        const message = JSON.stringify({sendDate: new Date(), data: faker.lorem.words(3)});
 
+        wait(3000)
+        const publisher = new Publisher(topic);
+        await publisher.publish(message);
+        console.log(message);
+
+    });
 });
