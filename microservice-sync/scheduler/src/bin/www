@@ -8,10 +8,10 @@ const http = require('http');
 const config = require('../lib/config');
 const logger = require('../lib/logger');
 const {validateDependencyApiUrls} = require('../../dependencies');
+const schedulerItems = require('../../src/api/services/ScheduleItems');
 
 const log = logger(config.logger);
 
-global.runningScheduleItems = [];
 
 /**
  * Get port from environment and store in Express.
@@ -21,6 +21,11 @@ app.set('port', port);
 
 //validate the existence of the URLs of the dependency services
 validateDependencyApiUrls();
+
+schedulerItems.loadScheduleItems()
+  .then(result => {
+    global.schedulerItems = result;
+  })
 
 /**
  * Create HTTP server.

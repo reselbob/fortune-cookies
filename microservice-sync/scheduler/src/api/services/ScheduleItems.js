@@ -1,113 +1,60 @@
 const ServerError = require('../../lib/error');
 const uuidv4 = require('uuid/v4');
 const {
-  getScheduleItemsSync,
-  addScheduleItem,
-  getScheduleItems,
-  getScheduleItem,
-  deleteScheduleItem,
-  updateScheduleItem
+    getScheduleItemsSync,
+    addScheduleItem,
+    getScheduleItems,
+    getScheduleItem,
+    deleteScheduleItem,
+    updateScheduleItem,
+    loadScheduleItems
 } = require('../../../dataManager');
-/**
- * @param {Object} options
- * @param {Integer} options.limit How many items to return at one time (max 100)
- * @throws {Error}
- * @return {Promise}
- */
+
 module.exports.getScheduleItems = async (options) => {
-  // Implement your business logic here...
-  //
-  // This function should return as follows:
-  //
-  // return {
-  //   status: 200, // Or another success code.
-  //   data: [] // Optional. You can put whatever you want here.
-  // };
-  //
-  // If an error happens during your business logic implementation,
-  // you should throw an error as follows:
-  //
-  // throw new ServerError({
-  //   status: 500, // Or another error code.
-  //   error: 'Server Error' // Or another error message.
-  // });
+    const itms = getScheduleItems();
 
-  return {
-    status: 200,
-    data: []
-  };
+    return {
+        status: 200,
+        data: itms
+    };
 };
 
-/**
- * @param {Object} options
- * @throws {Error}
- * @return {Promise}
- */
 module.exports.createScheduleItem = async (scheduleItem) => {
-  const itm = await addScheduleItem(scheduleItem);
-  return {
-    status: 200,
-    data: itm
-  };
+    const itm = await addScheduleItem(scheduleItem);
+    await global.schedulerItems.push(itm);
+    return {
+        status: 200,
+        data: itm
+    };
 };
 
-/**
- * @param {Object} options
- * @param {String} options.id The id of the ScheduleItem to retrieve
- * @throws {Error}
- * @return {Promise}
- */
+
 module.exports.getScheduleItem = async (id) => {
-  // Implement your business logic here...
-  //
-  // This function should return as follows:
-  //
-  // return {
-  //   status: 200, // Or another success code.
-  //   data: [] // Optional. You can put whatever you want here.
-  // };
-  //
-  // If an error happens during your business logic implementation,
-  // you should throw an error as follows:
-  //
-  // throw new ServerError({
-  //   status: 500, // Or another error code.
-  //   error: 'Server Error' // Or another error message.
-  // });
-
-  return {
-    status: 200,
-    data: 'getScheduleItem ok!'
-  };
+    const itm = await getScheduleItem(id);
+    return {
+        status: 200,
+        data: itm
+    };
 };
 
-/**
- * @param {Object} options
- * @param {String} options.id The id of the ScheduleItem to delete
- * @throws {Error}
- * @return {Promise}
- */
+
 module.exports.deleteScheduleItem = async (options) => {
-  // Implement your business logic here...
-  //
-  // This function should return as follows:
-  //
-  // return {
-  //   status: 200, // Or another success code.
-  //   data: [] // Optional. You can put whatever you want here.
-  // };
-  //
-  // If an error happens during your business logic implementation,
-  // you should throw an error as follows:
-  //
-  // throw new ServerError({
-  //   status: 500, // Or another error code.
-  //   error: 'Server Error' // Or another error message.
-  // });
+    throw new Error('deleteScheduleItem not Implemented');
 
-  return {
-    status: 200,
-    data: 'deleteScheduleItem ok!'
-  };
+    return {
+        status: 200,
+        data: 'deleteScheduleItem ok!'
+    };
 };
+
+module.exports.getScheduleItems = async() =>{
+    return await getScheduleItems();
+};
+
+module.exports.loadScheduleItems = async() =>{
+    return await loadScheduleItems();
+}
+
+
+
 

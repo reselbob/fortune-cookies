@@ -19,29 +19,31 @@ describe('API Tests: ', () => {
     fctestils.testServer;
     fctestils.setSenderTargetEnvVars();
 
+    //process.env.SENDER_PORT = 5002;
+    //process.env.SENDER_API_URL = `http://localhost:${process.env.SENDER_PORT}`;
 
-    process.env.SENDER_PORT = 5002;
-    process.env.SENDER_API_URL = `http://localhost:${process.env.SENDER_PORT}`;
-
-    process.env.FORTUNE_PORT = 5004;
-    process.env.FORTUNE_API_URL = `http://localhost:${process.env.FORTUNE_PORT}`;
+    //process.env.FORTUNE_PORT = 5004;
+    //process.env.FORTUNE_API_URL = `http://localhost:${process.env.FORTUNE_PORT}`;
 
     process.env.SCHEDULER_PORT = 5005;
 
 
-
-    app = require('../src/bin/www');
+    try {
+      app = require('../src/bin/www');
+    } catch (e) {
+      console.log(e);
+    }
     app.server;
 
   })
   after(function () {
     app.shutdown();
-    fctestils.shutdown();
+    fctestils.stopServer();
 
-    process.env.SENDER_API_URL = null;
-    process.env.FORTUNE_API_URL = null;
-    process.env.SCHEDULER_PORT = null;
-    process.env.TEST_UTILS_PORT = null;
+    //process.env.SENDER_API_URL = null;
+    //process.env.FORTUNE_API_URL = null;
+    //process.env.SCHEDULER_PORT = null;
+    //process.env.TEST_UTILS_PORT = null;
   });
 
   it('Can GET ScheduleItems', function(done){
@@ -59,7 +61,7 @@ describe('API Tests: ', () => {
       });
   });
 
-  it('Can  POST schedlerItem', function(done){
+  it('Can  POST schedulerItem', function(done){
     const user = createFakeUser();
     const scheduleItem ={};
     scheduleItem.firstName  = user.firstName;

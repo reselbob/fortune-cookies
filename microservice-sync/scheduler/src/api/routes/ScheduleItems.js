@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 
   try {
     const result = await scheduleItems.getScheduleItems(options);
-    res.status(result.status || 200).send(result.data);
+    res.status(result.status || 200).send(result);
   } catch (err) {
     console.log(err);
     return res.status(500).send({

@@ -16,7 +16,7 @@ const wait =  (timeInMs) => {
 };
 
 const getTargets = ()=> {
-    return ['TWITTER','FACEBOOK', 'LINKEDIN','INSTAGRAM','SMS','EMAIL','FORTUNES'];
+    return ['TWITTER','FACEBOOK', 'LINKEDIN','INSTAGRAM','SMS','EMAIL','FORTUNES', 'SENDER'];
 };
 
 
