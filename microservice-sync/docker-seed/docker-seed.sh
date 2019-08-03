@@ -46,3 +46,7 @@ docker build -t users -f ../users/Dockerfile .
 docker tag users localhost:5000/users
 
 docker push localhost:5000/users
+
+#List the images in the registry
+
+curl http://localhost:5000/v2/_catalog
