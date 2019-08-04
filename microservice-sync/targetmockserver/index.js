@@ -1,8 +1,13 @@
 const express = require("express");
 const JSON = require('circular-json');
 const app = express();
+const bodyParser = require('body-parser');
 
 const port = process.env.TARGET_MOCK_SERVER_PORT || 3000;
+
+// configure body parser
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 const validateDependencyEnvVars = () =>{
     const missingTargets = [];
@@ -35,7 +40,7 @@ app.get("/", (req, res, next) => {
 app.post("/", (req, res, next) => {
     res.status = 200;
     const str = JSON.stringify(getResponseObject(req, 'POST'));
-    const msg = `${process.env.TARGET_NAME} is sending a POST at ${new Date()} with the body ${JSON.stringify(req)}.`;
+    const msg = `${process.env.TARGET_NAME} is sending a POST at ${new Date()} with the body ${JSON.stringify(req.body)}.`;
     console.log(msg);
     res.send(str).end();
 });
