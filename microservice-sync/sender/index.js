@@ -45,7 +45,13 @@ const send =  async (message) => {
         url = getTargetApiUrl(message.target.toUpperCase());
     }
     console.log(`Sending the message ${JSON.stringify(message)} to ${url} at ${new Date()}`);
-    return axios.post(url,message.payload)
+    const options = {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        data: JSON.stringify(message.payload),
+        url
+    };
+    return axios(options)
         .then(response => {
             console.log(`Sent the message ${JSON.stringify(message)} to ${url} at ${new Date()} response data ${response.data}`);
             return response.data
@@ -80,7 +86,7 @@ router.route('/')
         const r = await send(req.body);
         console.log(`Sent ${JSON.stringify(req.body)} at ${new Date()} response ${r}`);
         res.statusCode = 200;
-        res.send(JSON.stringify({sent: r}))
+        res.send(JSON.stringify({sent: r}));
         res.end();
     });
 
