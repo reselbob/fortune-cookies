@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 
-#create the local repo and containers
-sh ././../docker-seed/docker-seed.sh
+
 
 #generate the targets, pods first
 for filename in ./manifests/targets/*-pod.yaml; do
-    echo "$filename"
+    kubectl apply -f "$filename"
 done
 
 #then targets services
 for filename in ./manifests/targets/*-service.yaml; do
-    echo "$filename"
+    kubectl apply -f "$filename"
 done
 
 #generate fortunes
