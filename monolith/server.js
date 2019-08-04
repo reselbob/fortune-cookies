@@ -17,7 +17,7 @@ app.use(morgan('dev')); // log requests to the console
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 8080; // set our port
+const port = process.env.PORT || 3000; // set our port
 
 // create our router
 const router = express.Router();
@@ -103,7 +103,7 @@ let globalSchedulerArray;
 
 loadScheduleItems()
     .then(arr => {
-        console.log(`Fortune cookies running at ${new Date()}`);
+        console.log(`Schedule Items loaded at ${new Date()}`);
         globalSchedulerArray = arr;
         return arr;
     });
@@ -117,6 +117,6 @@ const shutdown = () => {
         })
 };
 
-console.log('User is listening on port: ' + port);
+console.log(`Fortune Cookies is listening on port: ${port} at ${new Date()}`);
 module.exports = {server, shutdown};
 
