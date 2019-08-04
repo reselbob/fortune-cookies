@@ -15,13 +15,13 @@ Application the demonstrates a monolithic application to be transformed to a mic
 
 `cd fortune-cookies/monolith`
 
-**Step 4**: Install the NodeJS dependencies
+**Step 4**: Run the application as a Docker container, first `build` the container image.
 
-`npm install`
+`docker build -t monolith` .
 
-**Step 5**: Start the application
+**Step 5**: Run the container against the image
 
-`node server.js`
+`docker run -p 3000:3000 -d  --name fc-monolith monolith`
 
 You should see some screen chatter similiar to this:
 
@@ -44,3 +44,7 @@ Greetings from Addie D'Amore: After dinner rest a while, after supper walk a mil
 ```
 
 The monolithic version of the application is now up and running.
+
+**Step 6**: Add a user using `curl`
+
+`curl -X POST 'http://localhost:3000/api/users' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data '{"firstName":"Cool", "lastName":"McCool", "dob":"1979-01-27", "email":"cool.mccool@reallycool.com"}'`
