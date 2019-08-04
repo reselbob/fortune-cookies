@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: testconsumer
+  labels:
+    app: testconsumer
+spec:
+  selector:
+    app: testconsumer
+  ports:
+  - port: 80
+    targetPort: 3000
+    name: http
+  type: NodePort

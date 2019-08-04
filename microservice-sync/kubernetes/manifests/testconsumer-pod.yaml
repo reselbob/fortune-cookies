@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testconsumer
+  labels:
+    app: testconsumer
+spec:
+  containers:
+  - name: fortunes
+    image: localhost:5000/testconsumer
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: FORTUNE_API_URL
+        value: "http://fortunes/"

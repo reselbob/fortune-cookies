@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: users
+  labels:
+    app: users
+spec:
+  containers:
+  - name: users
+    image: localhost:5000/users
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: SCHEDULER_API_URL
+        value: "http://scheduler/"

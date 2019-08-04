@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fortunes
+  labels:
+    app: fortunes
+spec:
+  selector:
+    app: fortunes
+  ports:
+  -
+    protocol: TCP
+    port: 80
+    targetPort: 3000

@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: email
+  labels:
+    app: email
+spec:
+  containers:
+  - name: email
+    image: localhost:5000/targetmockserver
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: TARGET_NAME
+        value: "EMAIL"

@@ -1,0 +1,186 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Scheduler
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:3000/
+paths:
+  /ScheduleItems:
+    get:
+      summary: Gets a list of all schedule items
+      operationId: getScheduleItems
+      tags:
+        - ScheduleItems
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of ScheduleItems
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScheduleItems"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a ScheduleItem
+      operationId: createScheduleItem
+      parameters:
+      - name: scheduleItem
+        in: body
+        required: true
+        schema:
+          $ref: "#/components/schemas/ScheduleItem"
+
+      tags:
+        - ScheduleItem
+      responses:
+        '201':
+          description: An KnownScheduleItem
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KnownScheduleItem"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /ScheduleItems/{id}:
+    get:
+      summary: Info for a specific ScheduleItem
+      operationId: getScheduleItem
+      tags:
+        - ScheduleItems
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the ScheduleItem to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KnownScheduleItem"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: deletes a specific ScheduleItem
+      operationId: deleteScheduleItem
+      tags:
+        - ScheduleItems
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the ScheduleItem to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScheduleItemDeleted"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    ScheduleItem:
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - target
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        interval:
+          type: string
+        target:
+          $ref: "#/components/schemas/ScheduleItemTarget"
+        tag:
+          type: string
+    KnownScheduleItem:
+      allOf:
+        - $ref: '#/components/schemas/ScheduleItem'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+    ScheduleItems:
+      type: array
+      items:
+        $ref: "#/components/schemas/KnownScheduleItem"
+    ScheduleItemTarget:
+      type: string
+      enum:
+        - TWITTER
+        - FACEBOOK
+        - INSTAGRAM
+        - LINKEDIN
+        - SMS
+        - EMAIL
+    ScheduleItemDeleted:
+      required:
+        - scheduleItemId
+        - deleteDate
+      properties:
+        scheduleItemId:
+          type: string
+          format: uuid
+        deleteDate:
+          type: string
+          format: date-time
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

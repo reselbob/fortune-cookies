@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sender
+  labels:
+    app: sender
+spec:
+  containers:
+  - name: sender
+    image: localhost:5000/sender
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: TWITTER_API_URL
+        value: "http://twitter/"
+      - name: FACEBOOK_API_URL
+        value: "http://facebook/"
+      - name: LINKEDIN_API_URL
+        value: "http://linkedin/"
+      - name: INSTAGRAM_API_URL
+        value: "http://instagram/"
+      - name: SMS_API_URL
+        value: "http://sms/"
+      - name: EMAIL_API_URL
+        value: "http://email/"
+      - name: FORTUNES_API_URL
+        value: "http://fortunes/"

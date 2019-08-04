@@ -1,0 +1,18 @@
+# Scheduler
+
+## Required Environmental Variables
+
+`TWITTER_API_URL`
+
+`FACEBOOK_API_URL`
+
+`LINKEDIN_API_URL`
+
+`INSTAGRAM_API_URL`
+
+`SMS_API_URL`
+
+`EMAIL_API_URL`
+
+`FORTUNES_API_URL`
+

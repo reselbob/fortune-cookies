@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: facebook
+  labels:
+    app: facebook
+spec:
+  selector:
+    app: facebook
+  ports:
+  -
+    protocol: TCP
+    port: 80
+    targetPort: 3000

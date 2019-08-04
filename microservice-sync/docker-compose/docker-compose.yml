@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  consumer:
+       depends_on:
+         - fortune
+       build: ../testconsumer
+       ports:
+         - "3002:3000"
+       environment:
+         FORTUNE_API_URL: fortune:3001
+       networks:
+          - reselbob_net
+       command: ["/app/wait-for-it.sh", "fortune:3001", "--", "node", "index.js"]
+  fortune:
+    build: ../fortunes
+    ports:
+       - "3001:3000"
+    networks:
+       - reselbob_net
