@@ -117,6 +117,6 @@ const shutdown = () => {
         })
 };
 
-console.log('Listening on port: ' + port);
+console.log('User is listening on port: ' + port);
 module.exports = {server, shutdown};
 

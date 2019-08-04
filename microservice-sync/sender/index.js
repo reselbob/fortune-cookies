@@ -22,7 +22,7 @@ const axios = require('axios');
 const {validateTargets, getTargetApiUrl} = require('./targets');
 
 const getFortune = async () => {
-    const url = getDependencyApiUrl('FORTUNE');
+    const url = getTargetApiUrl('FORTUNES');
     const res = await axios.get(url);
     return res.body.fortune;
 };
