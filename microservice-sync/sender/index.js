@@ -25,9 +25,9 @@ const getFortune = async () => {
     const url = getTargetApiUrl('FORTUNES');
     const res = await axios.get(url);
     if(!res.body){
-        console.log(`There is a problem on Sender.getFortune response is ${res}`);
+        console.log(`There is a problem on Sender.getFortune response is ${JSON.stringify(res)}`);
     }else{
-        console.log(`The response body for Sender.getFortune is ${res.body}`);
+        console.log(`The response body for Sender.getFortune is ${JSON.stringify(res.body)}`);
     }
 
     return res.body.fortune;
