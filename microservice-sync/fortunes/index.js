@@ -34,7 +34,7 @@ router.route('/')
         const fortune = await getRandomFortune();
         const str = JSON.stringify(fortune);
         console.log(`Sending fortune ${str} at ${new Date()}`)
-        res.send(str );
+        res.send(str ).end();
     });
 
 

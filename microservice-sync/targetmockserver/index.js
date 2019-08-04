@@ -27,7 +27,7 @@ app.get("/", (req, res, next) => {
     const str = JSON.stringify(getResponseObject(req, 'GET'));
     const msg = `${process.env.TARGET_NAME} is sending a GET at ${new Date()}`;
     console.log(msg);
-    res.send(str);
+    res.send(str).end();
 });
 
 //optional command line param to declare target is, ?target=value
@@ -36,7 +36,7 @@ app.post("/", (req, res, next) => {
     const str = JSON.stringify(getResponseObject(req, 'POST'));
     const msg = `${process.env.TARGET_NAME} is sending a POST at ${new Date()}`;
     console.log(msg);
-    res.send(str);
+    res.send(str).end();
 });
 
 validateDependencyEnvVars();

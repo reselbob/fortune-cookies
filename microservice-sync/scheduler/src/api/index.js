@@ -19,7 +19,7 @@ app.use('/ScheduleItems', require('./routes/ScheduleItems'));
 // catch 404
 app.use((req, res, next) => {
   log.error(`Error 404 on ${req.url}.`);
-  res.status(404).send({ status: 404, error: 'Not found' });
+  res.status(404).send({ status: 404, error: 'Not found' }).end();
 });
 
 // catch errors
@@ -27,7 +27,7 @@ app.use((err, req, res, next) => {
   const status = err.status || 500;
   const msg = err.error || err.message;
   console.log(`Error ${status} (${msg}) on ${req.method} ${req.url} with payload ${req.body}.`);
-  res.status(status).send({ status, error: msg });
+  res.status(status).send({ status, error: msg }).end();
 });
 
 

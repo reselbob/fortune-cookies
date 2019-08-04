@@ -17,14 +17,14 @@ const getResponseObject = (req, method) =>{
 app.get("/", (req, res, next) => {
     res.status = 200;
     const str = JSON.stringify(getResponseObject(req, 'GET'));
-    res.send(str);
+    res.send(str).end();
 });
 
 //optional command line param to declare target is, ?target=value
 app.post("/", (req, res, next) => {
     res.status = 200;
     const str = JSON.stringify(getResponseObject(req, 'POST'));
-    res.send(str);
+    res.send(str).end();
 });
 
 const server = app.listen(port);

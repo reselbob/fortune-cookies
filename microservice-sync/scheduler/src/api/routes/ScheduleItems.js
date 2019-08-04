@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
     return res.status(500).send({
       status: 500,
       error: err
-    });
+    }).end();
   }
 });
 
@@ -54,7 +54,7 @@ router.get('/:id', async (req, res, next) => {
     return res.status(500).send({
       status: 500,
       error: 'Server Error'
-    });
+    }).end();
   }
 });
 
@@ -73,7 +73,7 @@ router.delete('/:id', async (req, res, next) => {
     return res.status(500).send({
       status: 500,
       error: 'Server Error'
-    });
+    }).end();
   }
 });
 
