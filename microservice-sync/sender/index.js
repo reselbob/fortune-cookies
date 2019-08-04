@@ -24,7 +24,12 @@ const {validateTargets, getTargetApiUrl} = require('./targets');
 const getFortune = async () => {
     const url = getTargetApiUrl('FORTUNES');
     const res = await axios.get(url);
-    console.log(`The response body for Sender.getFortune is ${res.body}`);
+    if(!res.body){
+        console.log(`There is a problem on Sender.getFortune response is ${res}`);
+    }else{
+        console.log(`The response body for Sender.getFortune is ${res.body}`);
+    }
+
     return res.body.fortune;
 };
 
