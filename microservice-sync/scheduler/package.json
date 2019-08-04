@@ -19,7 +19,6 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "fc-testutils": "file:../fc-testutils",
     "chai": "^4.2.0",
     "faker": "^4.1.0",
     "mocha": "^6.2.0",

@@ -5,7 +5,7 @@ const should = require('chai').should();
 const faker = require('faker');
 const supertest = require('supertest');
 let app;
-const fctestils = require('fc-testutils');
+const fctestils = require('../../fc-testutils');
 const {setTargetEnvVars, createSenderMessage} = require('./testutils');
 
 describe('Sender API Tests: ', () => {

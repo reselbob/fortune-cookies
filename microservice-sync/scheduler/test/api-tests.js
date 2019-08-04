@@ -15,7 +15,7 @@ let shutdown;
 describe('API Tests: ', () => {
   before(() => {
     process.env.TEST_UTILS_PORT = 5001;
-    fctestils = require('fc-testutils');
+    fctestils = require('../../fc-testutils');
     fctestils.testServer;
     fctestils.setSenderTargetEnvVars();
 
