@@ -12,9 +12,6 @@ for filename in ./manifests/targets/*-service.yaml; do
     kubectl apply -f "$filename"
 done
 
-#generate fortunes
-kubectl apply -f ./manifests/fortunes-pod.yaml
-kubectl apply -f ./manifests/fortunes-service.yaml
 
 #generate sender
 kubectl apply -f ./manifests/sender-pod.yaml
@@ -24,6 +21,10 @@ kubectl apply -f ./manifests/sender-service.yaml
 kubectl apply -f ./manifests/scheduler-pod.yaml
 kubectl apply -f ./manifests/scheduler-service.yaml
 
-#generate userss
+#generate users
 kubectl apply -f ./manifests/users-pod.yaml
 kubectl apply -f ./manifests/users-service.yaml
+
+#generate fortunes
+kubectl apply -f ./manifests/fortunes-pod.yaml
+kubectl apply -f ./manifests/fortunes-service.yaml
