@@ -1,6 +1,14 @@
 # Setting Up the Synchronous Version of the Fortune-Cookies MOA to Run Under Kubernetes
 
-MOA = Microservices Oriented Architecture
+## (MOA = Microservices Oriented Architecture)
+
+---- 
+
+Before you start, please be advised that the MOA is running inside a Kubernetes cluster. The current state of the code is that the microservices are running
+internal to Kubernetes. Hence, the application is faciliating internal "fortune sending" behavior. The next version will
+implement an interface that makes the application accessible from outside the Kubernetes cluster.
+
+---- 
 
 **Step 1**: Go to a Minikube playground on Katacoda
 
