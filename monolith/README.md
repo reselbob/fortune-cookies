@@ -1,4 +1,4 @@
-# fortune-cookies
+# Getting the Monolithic Version of Fortune Cookies Up and Running
 Application the demonstrates a monolithic application to be transformed to a microservices architecture
 
 **Step 1** Go to the Ubuntu Playground on Katacoda
@@ -7,7 +7,7 @@ Application the demonstrates a monolithic application to be transformed to a mic
 
 (You might have to login or create an account)
 
-**Step 2**: Load in this source code
+**Step 2**: Load in this source code into Katacoda
 
 `git clone https://github.com/reselbob/fortune-cookies.git`
 
@@ -17,11 +17,17 @@ Application the demonstrates a monolithic application to be transformed to a mic
 
 **Step 4**: Run the application as a Docker container, first `build` the container image.
 
-`docker build -t monolith` .
+`docker build -t monolith .`
+
+(don't forget the period!)
 
 **Step 5**: Run the container against the image
 
 `docker run -p 3000:3000 -d  --name fc-monolith monolith`
+
+**Step 6:** Do a log dump to see scheduler activity
+
+`docker logs --tail 2500 fc-monolith`
 
 You should see some screen chatter similiar to this:
 
@@ -48,3 +54,27 @@ The monolithic version of the application is now up and running.
 **Step 6**: Add a user using `curl`
 
 `curl -X POST 'http://localhost:3000/api/users' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data '{"firstName":"Cool", "lastName":"McCool", "dob":"1979-01-27", "email":"cool.mccool@reallycool.com"}'`
+
+If a user is saved to the system, the user data will be returned with a system assigned `id`, similar to the following:
+
+`{"id":"89b689dd-0f94-43f1-93d8-e1fa2564fd4d","firstName":"Cool","lastName":"McCool","dob":"1979-01-27"}`
+
+**Step 7** Execute the following command to see if Cool McCool is active.
+
+`docker logs --tail 2500 fc-monolith | grep McCool`
+
+
+Now, when you take a look at the logs again, you will see that Cool McCool is sending fortunes out too with output similar to this:
+
+```text
+Greetings from Cool McCool: Spare the rod and spoil the child.
+Greetings from Cool McCool: Every man is the architect of his destiny.
+Greetings from Cool McCool: The geek shall inherit the earth.
+Greetings from Cool McCool: A bird in the hand is worth two in the bush.
+Greetings from Cool McCool: If at first you don't succeed, try, try again.
+Greetings from Cool McCool: Listen to the pot calling the kettle black.
+Greetings from Cool McCool: The best of friends must part.
+Greetings from Cool McCool: Up and down like a fiddler's elbow.
+Greetings from Cool McCool: Old friends and old wine are best.
+Greetings from Cool McCool: If you lie down with dogs, you'll get up with fleas.
+```
