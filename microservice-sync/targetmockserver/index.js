@@ -1,4 +1,5 @@
 const express = require("express");
+const JSON = require('circular-json');
 const app = express();
 
 const port = process.env.TARGET_MOCK_SERVER_PORT || 3000;

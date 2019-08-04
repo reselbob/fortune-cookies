@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "circular-json": "^0.5.9",
     "express": "^4.17.1"
   }
 }
