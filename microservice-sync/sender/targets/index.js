@@ -37,6 +37,10 @@ const validateTargets = () =>{
         const str =  `The following required target URLs are not formatted property: ${JSON.stringify(arr)}. Server shutting down at ${new Date()}.`;
         throw new Error(str);
     }
+    const targets = getTargets();
+    targets.forEach(function(target) {
+        console.log(`${target}'s url is ${getTargetApiUrl(target)}`);
+    });
 };
 
 const getTargets = ()=> {
