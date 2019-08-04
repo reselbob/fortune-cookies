@@ -9,6 +9,7 @@ spec:
   containers:
   - name: sender
     image: localhost:5000/sender
+    imagePullPolicy: Always
     ports:
       - name: app
         containerPort: 3000

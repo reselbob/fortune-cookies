@@ -9,6 +9,7 @@ spec:
   containers:
   - name: linkedin
     image: localhost:5000/targetmockserver
+    imagePullPolicy: Always
     ports:
       - name: app
         containerPort: 3000

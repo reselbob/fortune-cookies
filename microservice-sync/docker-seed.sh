@@ -62,7 +62,7 @@ cd ..
 #Create the users container image
 cd users
 
-docker build -t users -f .
+docker build -t users .
 
 docker tag users localhost:5000/users
 
