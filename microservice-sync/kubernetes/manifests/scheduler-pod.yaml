@@ -13,7 +13,5 @@ spec:
       - name: app
         containerPort: 3000
     env:
-      - name: FORTUNE_API_URL
-        value: "http://fortunes/"
       - name: SENDER_API_URL
         value: "http://sender/"
