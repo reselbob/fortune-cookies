@@ -25,6 +25,8 @@ const getResponseObject = (req, method) =>{
 app.get("/", (req, res, next) => {
     res.status = 200;
     const str = JSON.stringify(getResponseObject(req, 'GET'));
+    const msg = `${process.env.TARGET_NAME} is sending a GET at ${new Date()}`;
+    console.log(msg);
     res.send(str);
 });
 
@@ -32,6 +34,8 @@ app.get("/", (req, res, next) => {
 app.post("/", (req, res, next) => {
     res.status = 200;
     const str = JSON.stringify(getResponseObject(req, 'POST'));
+    const msg = `${process.env.TARGET_NAME} is sending a POST at ${new Date()}`;
+    console.log(msg);
     res.send(str);
 });
 

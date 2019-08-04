@@ -91,7 +91,7 @@ describe('API Tests: ', () => {
   it('Cannot  POST scheduler', function(done){
     const user = createFakeUser();
     const scheduleItem ={};
-    supertest(server)
+    supertest(app.server)
       .post('/ScheduleItems')
       .set('Accept', 'application/json')
       .send(user)
