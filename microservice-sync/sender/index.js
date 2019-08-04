@@ -24,6 +24,7 @@ const {validateTargets, getTargetApiUrl} = require('./targets');
 const getFortune = async () => {
     const url = getTargetApiUrl('FORTUNES');
     const res = await axios.get(url);
+    console.log(`The response body for Sender.getFortune is ${res.body}`);
     return res.body.fortune;
 };
 
@@ -45,7 +46,7 @@ const send =  async (message) => {
             return response.data
         })
         .catch(error => {
-            console.log(error);
+            console.log(JSON.stringify({err:error}));
         });
 };
 
