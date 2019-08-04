@@ -24,6 +24,7 @@ const getResponseObject = (req, method) =>{
     obj.date = new Date();
     obj.method = method;
     obj.message = `Hello from target: ${process.env.TARGET_NAME}.`;
+    obj.received = req.body;
     return obj;
 };
 

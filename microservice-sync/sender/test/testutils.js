@@ -1,5 +1,5 @@
 const {getTargets} = require('../targets');
-const fctestils = require('fc-testutils');
+const fctestils = require('../../fc-testutils');
 const faker = require('faker');
 
 

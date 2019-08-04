@@ -24,13 +24,13 @@ const {validateTargets, getTargetApiUrl} = require('./targets');
 const getFortune = async () => {
     const url = getTargetApiUrl('FORTUNES');
     const res = await axios.get(url);
-    if(!res.body){
+    if(!res.data){
         console.log(`There is a problem on Sender.getFortune response is ${JSON.stringify(res.data)}`);
     }else{
         console.log(`The response data for Sender.getFortune is ${JSON.stringify(res.data)}`);
     }
 
-    return res.data.fortune;
+    return res.data;
 };
 
 const send =  async (message) => {
@@ -38,8 +38,14 @@ const send =  async (message) => {
     const target = getTargetApiUrl(message.target);
     if (!target) throw new Error(`${message.target} is not a valid target`);
 
+    const fortune = await getFortune();
     //Add on the fortune
-    message.fortune = await getFortune();
+    if( message.payload){
+        message.payload.fortune =  fortune;
+    }else{
+        message.payload = fortune;
+    }
+
     let url;
     if(message.target){
         url = getTargetApiUrl(message.target.toUpperCase());
@@ -53,7 +59,7 @@ const send =  async (message) => {
     };
     return axios(options)
         .then(response => {
-            console.log(`Sent the message ${JSON.stringify(message)} to ${url} at ${new Date()} response data ${response.data}`);
+            console.log(`Sent the message ${JSON.stringify(message)} to ${url} at ${new Date()} response data ${JSON.stringify(response.data)}`);
             return response.data
         })
         .catch(error => {

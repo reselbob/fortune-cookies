@@ -28,7 +28,7 @@ const createFakeUser = () => {
     const dob = faker.date.between('1950-01-01', '2001-12-31').toISOString().slice(0, 10);
     const email = `${firstName}.${lastName}@${faker.internet.domainName()}`;
     const phone = faker.phone.phoneNumber;
-    const target = _.sample(targets);
+    const target = _.sample(['FACEBOOK','TWITTER','INSTAGRAM','SMS', 'EMAIL', 'LINKEDIN']);
 
     return {firstName, lastName, dob, email,phone,target};
 };
