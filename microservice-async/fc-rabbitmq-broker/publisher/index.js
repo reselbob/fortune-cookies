@@ -29,7 +29,6 @@ class Publisher {
         await this.sendMessage(message);
         return {status:'OK', message}
     }
-
 }
 module.exports = {
     Publisher: Publisher

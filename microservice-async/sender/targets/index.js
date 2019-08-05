@@ -1,4 +1,4 @@
-const {Publisher} = require('fc-message-broker');
+const {Publisher} = require('../../fc-rabbitmq-broker');
 const publisher = new Publisher();
 
 const validateTopics = () => {
