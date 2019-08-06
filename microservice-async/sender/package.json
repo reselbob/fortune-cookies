@@ -8,14 +8,10 @@
   },
   "author": "reselbob@gmail.com",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "fc-message-broker": "file:../fc-message-broker",
-    "morgan": "^1.9.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "supertest": "^4.0.2"
+    "faker": "^4.1.0",
+    "mocha": "^6.2.0"
   }
 }

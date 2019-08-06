@@ -28,7 +28,10 @@ class Subscriber {
         this.client = client;
 
         client.on('ready', function () {
-            console.log(`Subscriber ${id} READY at ${new Date()}`)
+            console.log(`Subscriber ${id} READY at ${new Date()}`);
+
+            client.subscribe(channel);
+            console.log(`Subscriber ${id} SUBSCRIBING to Channel ${channel} at ${new Date()}`);
         });
 
         client.on('subscribe', function (channel, count) {
@@ -39,14 +42,7 @@ class Subscriber {
             console.log(`Subscriber ${id} UNSUBSCRIBED from ${channel} at ${new Date()}`)
         });
 
-        client.on('message', (message) =>
-        {
-            console.log('INCOME MESSAGE: ' + message);
-        });
-
-        //client.on('message', onMessageFunction);
-
-        client.subscribe(channel);
+        client.on('message', onMessageFunction);
     }
 
     async unsubscribe (){
