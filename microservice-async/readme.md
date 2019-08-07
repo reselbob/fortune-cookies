@@ -55,3 +55,11 @@ You should see a result, `PONG`
 You should see a return value similar to the following:
 
 `(integer) 0`
+
+**Step 11** Check the `sender` pod for activity
+
+`kubectl logs sender`
+
+**Step 12** Check the `scheduler` pod for activity
+
+`kubectl logs scheduler`
