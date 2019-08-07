@@ -8,7 +8,7 @@ cd sender
 
 docker build -t pingrx .
 
-docker tag fortunes localhost:5000/pingrx
+docker tag pingrx localhost:5000/pingrx
 
 docker push localhost:5000/pingrx
 
@@ -18,7 +18,7 @@ cd sender
 
 docker build -t sender .
 
-docker tag fortunes localhost:5000/sender
+docker tag sender localhost:5000/sender
 
 docker push localhost:5000/sender
 
