@@ -35,6 +35,19 @@ docker push localhost:5000/scheduler
 
 cd ..
 
+#Create the fortunes container image
+
+
+cd fortunes
+
+docker build -t fortunes .
+
+docker tag fortunes localhost:5000/fortunes
+
+docker push localhost:5000/fortunes
+
+cd ..
+
 
 #List the images in the registry
 

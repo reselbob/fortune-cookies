@@ -1,20 +1,16 @@
 const {Publisher, Subscriber} = require('resel-redis-broker');
 
-const validateTopics = () => {
-    const missingTopics = [];
+const validateEnvVars = () => {
+    const missingEnvVars = [];
+    const envVarNames = getDependencyEnvVars();
+    envVarNames.forEach(envVar => {
+        if (!process.env[envVar]) missingEnvVars.push(envVar);
+    });
 
-    if (!process.env.SENDER_TARGET_TOPIC) missingTopics.push('SENDER_TARGET_TOPIC');
-    if (!process.env.SENDER_SOURCE_TOPIC) missingTopics.push('SENDER_SOURCE_TOPIC');
-
-    if (missingTopics.length > 0) {
-        const str = `The following required environment variable are missing: ${JSON.stringify(missingTopics)}. Server shutting down at ${new Date()}.`;
+    if (missingEnvVars.length > 0) {
+        const str = `The following required environment variable are missing: ${JSON.stringify(missingEnvVars)}. Server shutting down at ${new Date()}.`;
         throw new Error(str);
     }
-};
-
-const topics = {
-    SOURCE_TOPIC: process.env['SENDER_SOURCE_TOPIC'],
-    TARGET_TOPIC: process.env['SENDER_TARGET_TOPIC']
 };
 
 
@@ -23,7 +19,11 @@ const getDependencyEnvVar = (envVar) => {
 };
 
 const getDependencyEnvVars = () => {
-    return ['REDIS_HOST','REDIS_PORT','REDIS_PWD']
+    return ['REDIS_HOST', 'REDIS_PORT',
+        'REDIS_PWD', 'SENDER_SOURCE_TOPIC',
+        'SENDER_TARGET_TOPIC',
+        'FORTUNES_SOURCE_TOPIC',
+        'FORTUNES_TARGET_TOPIC'];
 };
 
-module.exports = {validateTopics, topics, Publisher, Subscriber};
+module.exports = {validateEnvVars, getDependencyEnvVar, Publisher, Subscriber};
