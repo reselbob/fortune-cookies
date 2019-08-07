@@ -11,7 +11,7 @@ This set up process does the following:
 the source code in this project.
 * Creates Kubernetes the pods and services the make up the asynchronous MOA using container images
 stored in the local Docker registry and out on DockerHub.
-* Shows you how to inspect the MOA by querying various services logs in the Kubernetes cluster running in Katacoda.
+* Shows you how to inspect the MOA by querying the logs of various pods in the Kubernetes cluster running in Katacoda.
 
 ## Setting up the K8S environment
 
