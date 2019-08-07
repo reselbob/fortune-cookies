@@ -49,20 +49,21 @@ container to add more debugging capabilities.)
 
 `kubectl exec -it pingrx -- sh`
 
-**Step 8**: Install `redis-tools` in the `pingrx` container. 
+**Step 8**: Install `redis-tools` in the `pingrx` container.
+
 `apt-get update && apt-get install redis-tools -y`
 
-**Step 8**: Connect to the `redis` service running under Kubernetes using the `redis-cli` tool.
+**Step 9**: Connect to the `redis` service running under Kubernetes using the `redis-cli` tool.
 
 `redis-cli -h redis-master -p 6379`
 
-**Step 9**: Ping the `redis` installation
+**Step 10**: Ping the `redis` installation
 
 `PING`
 
 You should see a result, `PONG`
 
-**Step 10**: Publish a message to `redis` just to make sure all is well.
+**Step 11**: Publish a message to `redis` just to make sure all is well.
 
 `PUBLISH testChannel "Hi There!"`
 
@@ -70,22 +71,24 @@ You should see a return value similar to the following:
 
 `(integer) 0`
 
-**Step 11**: Exit out of the `redis` shell:
+**Step 12**: Exit out of the `redis` shell:
 
 `exit`
 
-**Step 12**: Exit out of the container
+**Step 13**: Exit out of the container
 
 `exit`
 
-**Step 13** Check the `sender` pod for activity
+**Step 14** Check the `sender` pod for activity
 
 `kubectl logs sender`
 
-**Step 14** Check the `scheduler` pod for activity
+**Step 15** Check the `scheduler` pod for activity
 
 `kubectl logs scheduler`
 
-**Step 15** Check the `fortunes` pod for activity
+**Step 16** Check the `fortunes` pod for activity
 
 `kubectl logs fortunes`
+
+**CONGRATULATION!**
