@@ -56,14 +56,22 @@ You should see a return value similar to the following:
 
 `(integer) 0`
 
-**Step 11** Check the `sender` pod for activity
+**Step 11**: Exit out of the `redis` shell:
+
+`exit`
+
+**Step 12**: Exit out of the container
+
+`exit`
+
+**Step 13** Check the `sender` pod for activity
 
 `kubectl logs sender`
 
-**Step 12** Check the `scheduler` pod for activity
+**Step 14** Check the `scheduler` pod for activity
 
 `kubectl logs scheduler`
 
-**Step 13** Check the `fortunes` pod for activity
+**Step 15** Check the `fortunes` pod for activity
 
 `kubectl logs fortunes`
