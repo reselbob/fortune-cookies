@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sender
+  labels:
+    app: sender
+spec:
+  containers:
+  - name: sender
+    image: localhost:5000/sender
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: REDIS_HOST
+        value: "redis-master"
+      - name: REDIS_PORT
+        value: "6379"
+      - name: REDIS_PWD
+        value: "none"
+      - name: SENDER_TARGET_TOPIC
+        value: "fc_sender_out"
+      - name: SENDER_SOURCE_TOPIC
+        value: "fc_scheduler_out"
+      - name: FORTUNES_TARGET_TOPIC
+        value: "fc_fortunes_out"
+      - name: FORTUNES_SOURCE_TOPIC
+        value: "fc_fortunes_in"

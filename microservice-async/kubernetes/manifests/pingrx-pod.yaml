@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pingrx
+  labels:
+    app: pingrx
+spec:
+  containers:
+  - name: pingrx
+    image: localhost:5000/pingrx
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 80
+    imagePullPolicy: Always

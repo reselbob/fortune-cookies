@@ -1,61 +1,71 @@
-// BASE SETUP
-// =============================================================================
+const {validateEnvVars, getDependencyEnvVar, Publisher, Subscriber} = require('./messageBroker');
+validateEnvVars();
+/*
+supported message format
+{
+    target: string
+    payload: object
+    sendDate: Date
+}
+ */
 
-// call the packages we need
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-const morgan = require('morgan');
-const {validateTopics,sendToTopic, topics} = require('./targets');
-const {validateSenderMessage} = require('validators');
+const createStatusObject = (service,handler,mode,message, from, to) =>{
+    const obj = {
+        service,
+        handler,
+        mode,
+        message,
+        from,
+        to,
+        createdOn: new Date()
+    }
 
-// configure app
-app.use(morgan('dev')); // log requests to the console
+    return obj;
+}
 
-// configure body parser
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+const onSenderMessageReceived = async (channel, message) => {
+    let obj = createStatusObject('SENDER','onSenderMessageReceived','RECEIVED',message, channel);
+    console.log(JSON.stringify(obj));
 
-const port = process.env.PORT || 3000; // set our port
+    //send a message to FORTUNES source, which will in turn, send the message onto the SENDER TARGET
+    obj = createStatusObject('SENDER','onSenderMessageReceived','PUBLISHING',message, null,getDependencyEnvVar('FORTUNES_SOURCE_TOPIC'));
+    console.log(JSON.stringify(obj));
+    console.log(`Publisher ${fortunesPublisher.id } is PUBLISHING message, ${JSON.stringify(message)} at ${new Date()}`);
 
-// create our router
-const router = express.Router();
+    const rslt = fortunesPublisher.publish(message);
 
-// middleware to use for all requests
-router.use(function (req, res, next) {
-    // do logging
-    console.log({request:req});
-    next();
-});
+    obj = createStatusObject('SENDER','onSenderMessageReceived','PUBLISHED',message, null,getDependencyEnvVar('FORTUNES_SOURCE_TOPIC'));
+    obj.result = rslt;
 
-router.route('/')
-    .post = async(req, res) => {
-        validateSenderMessage(req.body);
-        console.log(`Sending ${JSON.stringify(req.body)} at ${new Date()}`);
-        const result = await sendToTopic(req.body.topic, req.body.payload);
-        res.statusCode = 200;
-        res.json({result });
-    };
-
-router.route('/topics')
-    .get = async (req, res) => {
-        console.log(`Returning topics ${JSON.stringify(topics)} at ${new Date()}`);
-        res.statusCode = 200;
-        res.json({topics });
-    };
+    console.log(JSON.stringify(obj));
+}
 
 
-// REGISTER OUR ROUTES -------------------------------
-app.use('/', router);
+//----- fortunes
 
-validateTopics();
+const onFortunesMessageReceived = async (channel, message) => {
+    let obj = createStatusObject('SENDER', 'onFortunesMessageReceived', 'RECEIVED', message, channel);
+    console.log(JSON.stringify(obj));
 
-const server = app.listen(port);
-const shutdown = () => {
-    console.log(`Sender Server shutting down at ${new Date()}`);
-    server.close()
+    const rslt = await senderPublisher.publish(message);
+
+    obj = createStatusObject('SENDER', 'onFortunesMessageReceived', 'PUBLISHED', message, null, getDependencyEnvVar('SENDER_TARGET_TOPIC'));
+    obj.rslt = rslt;
+    console.log(JSON.stringify(obj));
 };
 
-console.log('Listening on port: ' + port);
-module.exports = {server, shutdown};
+const getInitMessage = (service, id) =>{
+    return `${service} ${id} started running at ${new Date()}`;
+};
 
+const senderPublisher = new Publisher(getDependencyEnvVar('SENDER_SOURCE_TOPIC'));
+const senderSubscriber = new Subscriber(getDependencyEnvVar('SENDER_TARGET_TOPIC'), onSenderMessageReceived);
+
+console.log(getInitMessage('senderPublisher', senderPublisher.id));
+console.log(getInitMessage('senderSubscriber', senderSubscriber.id));
+
+const fortunesPublisher = new Publisher(getDependencyEnvVar('FORTUNES_SOURCE_TOPIC'));
+const fortunesSubscriber = new Subscriber(getDependencyEnvVar('FORTUNES_TARGET_TOPIC'), onFortunesMessageReceived);
+
+console.log(getInitMessage('fortunesPublisher', fortunesPublisher.id));
+console.log(getInitMessage('fortunesSubscriber', fortunesSubscriber.id));

@@ -7,7 +7,7 @@ metadata:
     app: scheduler
 spec:
   containers:
-  - name: fortunes
+  - name: scheduler
     image: localhost:5000/scheduler
     imagePullPolicy: Always
     ports:

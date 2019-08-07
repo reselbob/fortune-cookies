@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortunes
+  labels:
+    app: fortunes
+spec:
+  containers:
+  - name: fortunes
+    image: localhost:5000/fortunes
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: REDIS_HOST
+        value: "redis-master"
+      - name: REDIS_PORT
+        value: "6379"
+      - name: REDIS_PWD
+        value: "none"
+      - name: FORTUNES_TARGET_TOPIC
+        value: "fc_fortunes_out"
+      - name: FORTUNES_SOURCE_TOPIC
+        value: "fc_fortunes_in"

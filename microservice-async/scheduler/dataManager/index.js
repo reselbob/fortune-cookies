@@ -3,19 +3,18 @@ const fs = require('fs');
 const path = require('path');
 const {promisify} = require('util');
 const _ = require('lodash');
-const {getDependencyApiUrl} = require('../dependencies');
-const axios = require('axios');
 const CronJob = require('cron').CronJob;
-
+const {Publisher,getDependencyEnvVar} = require('../messageBroker');
 
 /*
 ScheduleItem = {
   id: uuid
   firstName: string,
   lastName: string,
-  email: string
-  dob:string
+  email: string,
   phone: string,
+  dob: string,
+  interval:string
 }
 */
 
@@ -25,31 +24,29 @@ const objectToFile = async (filespec, data) => {
 };
 
 const dataFileName = 'scheduleItems.json';
-/*
-const getFortune = async () => {
-  const url = getDependencyApiUrl('FORTUNE');
-  const res = await axios.get(url);
-  return res.body.fortune;
-};
-*/
+
 const postToSender = async (scheduleItem) => {
-    const url = getDependencyApiUrl('SENDER');
-    const res = await axios.post(url, scheduleItem);
-    if (res.status >= 400) {
-        throw new Error({status: res.status, message: res.message});
-    }
+    scheduleItem.sendDate = new Date();
+    const topic = getDependencyEnvVar('SCHEDULER_TARGET_TOPIC');
+    const publisher = new Publisher(topic);
+    const msg = JSON.stringify(scheduleItem);
+    console.log(`[SCHEDULER] is using Publisher ${publisher.id} to publish message, ${msg} at ${new Date()}`);
+    const res = await publisher.publish(msg);
+    console.log(`[SCHEDULER] is used Publisher ${publisher.id} and published message, ${msg} at ${new Date()} with response ${res}.`);
 };
 
 const parseSchedulerItemToSendItemSync = (schedulerItem => {
     const UNKNOWN = 'unknown';
     const obj = {};
-    obj.firstName = schedulerItem.firstName || UNKNOWN;
-    obj.lastName = schedulerItem.lastName || UNKNOWN;
-    obj.id = schedulerItem.id || UNKNOWN;
-    obj.phone = schedulerItem.phone || UNKNOWN;
-    obj.email = schedulerItem.email || UNKNOWN;
     obj.target = schedulerItem.target || UNKNOWN;
-
+    obj.payload = {
+        firstName: schedulerItem.firstName || UNKNOWN,
+        lastName: schedulerItem.lastName || UNKNOWN,
+        id: schedulerItem.id || UNKNOWN,
+        phone: schedulerItem.phone || UNKNOWN,
+        email: schedulerItem.email || UNKNOWN,
+    };
+    obj.sender = 'SCHEDULER';
     return obj
 });
 
@@ -59,13 +56,9 @@ const createScheduleItem = async (ScheduleItem) => {
     //ScheduleItem.fortune = await getFortune();
     const itm = parseSchedulerItemToSendItemSync(ScheduleItem);
     const job = new CronJob(period, async function () {
-        console.log({postingToSender: itm, time: new Date().toString()});
         await postToSender(itm);
-        console.log({postedToSender: itm, time: new Date().toString()});
     }, null, true, 'America/Los_Angeles');
     job.start();
-
-    //ScheduleItem.job = job;
     return itm;
 };
 
