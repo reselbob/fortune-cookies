@@ -21,6 +21,6 @@ spec:
       - name: REDIS_PWD
         value: "none"
       - name: SCHEDULER_TARGET_TOPIC
-        value: "fc_sender"
+        value: "fc_sender_out"
       - name: SCHEDULER_SOURCE_TOPIC
-        value: "fc_scheduler"
+        value: "fc_scheduler_in"

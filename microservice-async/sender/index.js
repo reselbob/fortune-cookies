@@ -9,7 +9,7 @@ supported message format
 }
  */
 
-const createStatusObject = (service,handler,mode,message, from) =>{
+const createStatusObject = (service,handler,mode,message, from, to) =>{
     const obj = {
         service,
         handler,
@@ -19,6 +19,8 @@ const createStatusObject = (service,handler,mode,message, from) =>{
         to,
         createdOn: new Date()
     }
+
+    return obj;
 }
 
 const onSenderMessageReceived = async (channel, message) => {
@@ -28,9 +30,10 @@ const onSenderMessageReceived = async (channel, message) => {
     //send a message to FORTUNES source, which will in turn, send the message onto the SENDER TARGET
     obj = createStatusObject('SENDER','onSenderMessageReceived','PUBLISHING',message, null,getDependencyEnvVar('FORTUNES_SOURCE_TOPIC'));
     console.log(JSON.stringify(obj));
-    console.log(`Publisher ${fortunesPublisher.id } is PUBLISHING message, ${msg} at ${new Date()}`);
+    console.log(`Publisher ${fortunesPublisher.id } is PUBLISHING message, ${JSON.stringify(message)} at ${new Date()}`);
 
     const rslt = fortunesPublisher.publish(message);
+
     obj = createStatusObject('SENDER','onSenderMessageReceived','PUBLISHED',message, null,getDependencyEnvVar('FORTUNES_SOURCE_TOPIC'));
     obj.result = rslt;
 

@@ -21,6 +21,10 @@ spec:
       - name: REDIS_PWD
         value: "none"
       - name: SENDER_TARGET_TOPIC
-        value: "fc_sender_outbound"
+        value: "fc_sender_out"
       - name: SENDER_SOURCE_TOPIC
-        value: "fc_sender"
+        value: "fc_scheduler_out"
+      - name: FORTUNES_TARGET_TOPIC
+        value: "fc_fortunes_out"
+      - name: FORTUNES_SOURCE_TOPIC
+        value: "fc_fortunes_in"

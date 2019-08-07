@@ -20,7 +20,7 @@ spec:
         value: "6379"
       - name: REDIS_PWD
         value: "none"
-      - name: fortunes_TARGET_TOPIC
-        value: "fc_fortunes_ready"
-      - name: fortunes_SOURCE_TOPIC
-        value: "fc_fortunes"
+      - name: FORTUNES_TARGET_TOPIC
+        value: "fc_fortunes_out"
+      - name: FORTUNES_SOURCE_TOPIC
+        value: "fc_fortunes_in"
