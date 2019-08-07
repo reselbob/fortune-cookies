@@ -27,7 +27,7 @@ stored in the local Docker registry and out on DockerHub.
 
 `cd fortune-cookies`
 
-**Step 4**: Go the the asynchronous version of Fortune Cookes
+**Step 4**: Go the the asynchronous version of Fortune Cookies
 
 `cd microservice-async/`
 
@@ -35,18 +35,21 @@ stored in the local Docker registry and out on DockerHub.
 
 `sh docker-seed.sh`
 
-**Step 6**: Generate the Kubernestes pods and services
+**Step 6**: Generate the Kubernetes pods and services
 
 `cd kubernetes`
 
 `sh ./generate-k8s-resources.sh`
 
-**Step 7**: Go into the `pingrx` pod so we can inspect the state of of things from inside the Kubernetes cluster
+**Step 7**: Go into the `pingrx` pod so we can inspect the state of of things from inside the Kubernetes cluster. 
+(`pingrx` is a utility I made that allows us to `ping` services internally
+in the Kubernetes cluster. Also, you'll install `redis-tools` in the `pingrx`
+container to add more debugging capabilities.)
+
 
 `kubectl exec -it pingrx -- sh`
 
-**Step 8**: Install `redis-tools` in the `pingrx` containere
-
+**Step 8**: Install `redis-tools` in the `pingrx` container. 
 `apt-get update && apt-get install redis-tools -y`
 
 **Step 8**: Connect to the `redis` service running under Kubernetes using the `redis-cli` tool.
