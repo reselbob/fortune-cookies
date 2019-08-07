@@ -4,7 +4,7 @@
 docker run -d -p 5000:5000 --restart=always --name registry registry:2
 
 #Create the pingrx container image
-cd sender
+cd pingrx
 
 docker build -t pingrx .
 
