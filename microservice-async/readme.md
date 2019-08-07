@@ -43,4 +43,21 @@ kubectl run --namespace default viable-sasquatch-redis-client --rm --tty -i --re
     --image docker.io/bitnami/redis:5.0.5-debian-9-r36 -- bash
 ```
 
-**Task 7:** Do Step 4 in Katacoda
+**Task 7:** Do Step 4 in Katacoda`
+
+`git clone https://github.com/reselbob/fortune-cookies.git`
+
+`cd fortune-cookies`
+
+
+`cd microservice-async/`
+
+`sh docker-seed.sh`
+
+`cd kubernetes`
+
+`sh ./generate-k8s-resources.sh`
+
+`kubectl exec -it pingrx -- sh`
+
+`redis-cli -h redits-master -p 6379`

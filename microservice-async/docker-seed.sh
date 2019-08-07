@@ -12,7 +12,7 @@ docker tag pingrx localhost:5000/pingrx
 
 docker push localhost:5000/pingrx
 
-
+cd ..
 #Create the sender container image
 cd sender
 
