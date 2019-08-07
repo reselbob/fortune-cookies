@@ -3,10 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const {promisify} = require('util');
 const _ = require('lodash');
-const {getDependencyApiUrl} = require('../apiDependencies');
 const CronJob = require('cron').CronJob;
-const {Publisher} = require('../messageBroker');
-
+const {Publisher,getDependencyEnvVar} = require('../messageBroker');
 
 /*
 ScheduleItem = {

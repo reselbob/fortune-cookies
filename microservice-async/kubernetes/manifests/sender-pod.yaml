@@ -15,12 +15,12 @@ spec:
         containerPort: 3000
     env:
       - name: REDIS_HOST
-        value: redis-master
+        value: "redis-master"
       - name: REDIS_PORT
-        value: 6379
+        value: "6379"
       - name: REDIS_PWD
-        value: none
-      - name: SCHEDULER_TARGET_TOPIC
-        value: fc_sender_outbound
-      - name: SCHEDULER_SOURCE_TOPIC
-        value: fc_sender
+        value: "none"
+      - name: SENDER_TARGET_TOPIC
+        value: "fc_sender_outbound"
+      - name: SENDER_SOURCE_TOPIC
+        value: "fc_sender"

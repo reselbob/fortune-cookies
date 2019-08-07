@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 
-kubectl delete service pingrx
 kubectl delete service scheduler
 kubectl delete service sender
 

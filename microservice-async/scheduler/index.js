@@ -1,5 +1,4 @@
 const {validateEnvVars, getDependencyEnvVar, Subscriber} = require('./messageBroker');
-const { validateDependencyApiUrls} = require('./apiDependencies');
 const {addScheduleItem, loadScheduleItems} = require('./dataManager');
 
 /*
@@ -30,7 +29,6 @@ Outgoing message format
  */
 
 validateEnvVars();
-validateDependencyApiUrls();
 loadScheduleItems();
 
 const onMessageReceived = async (channel, message) => {

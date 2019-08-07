@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "resel-redis-broker": "^1.0.1"
+    "cron": "^1.7.1",
+    "lodash": "^4.17.15",
+    "resel-redis-broker": "^1.0.2"
   }
 }
