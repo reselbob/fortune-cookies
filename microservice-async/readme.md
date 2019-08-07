@@ -1,10 +1,21 @@
 # Setting Up the Asynchronous Version of the Fortune-Cookies MOA to Run Under Kubernetes
 
-**UNDER DEVELOPMENT**
+The purpose of the version of Fortune Cookies is to provide hands-on experience creating a completely event driven MOA
+under Kubernetes. The project uses `redis` as the backing service for Message Brokerage.
+
+This set up process does the following:
+
+* Takes you to the Katacoda interactive learning environment where you'll do your work.
+* Installs a Docker registry locally in the Katacoda environment.
+* Populates the local Docker registry with the container images you'll need. Some of the container images are built directly from
+the source code in this project.
+* Creates Kubernetes the pods and services the make up the asynchronous MOA using container images
+stored in the local Docker registry and out on DockerHub.
+* Shows you how to inspect the MOA by querying various services logs in the Kubernetes cluster running in Katacoda.
 
 ## Setting up the K8S environment
 
-**Step 1**: Go to the Katacoda K8S interactive learning environment
+**Step 1**: Go to the Katacoda K8S interactive learning environment for `minikube`
 
 `https://katacoda.com/courses/kubernetes/kubectl-run-containers`
 
