@@ -1,4 +1,4 @@
-const {Publisher, Subscriber} = require('../../resel-redis-broker');
+const {Publisher, Subscriber} = require('resel-redis-broker');
 
 const validateTopics = () => {
     const missingTopics = [];
@@ -23,7 +23,7 @@ const getDependencyEnvVar = (envVar) => {
 };
 
 const getDependencyEnvVars = () => {
-    return ['REDIS_ENDPOINT','REDIS_PORT','REDIS_PWD']
+    return ['REDIS_HOST','REDIS_PORT','REDIS_PWD']
 };
 
 module.exports = {validateTopics, topics, Publisher, Subscriber};
