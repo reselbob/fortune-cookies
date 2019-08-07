@@ -40,10 +40,6 @@ describe('API Tests: ', () => {
     app.shutdown();
     fctestils.stopServer();
 
-    //process.env.SENDER_API_URL = null;
-    //process.env.FORTUNE_API_URL = null;
-    //process.env.SCHEDULER_PORT = null;
-    //process.env.TEST_UTILS_PORT = null;
   });
 
   it('Can GET ScheduleItems', function(done){

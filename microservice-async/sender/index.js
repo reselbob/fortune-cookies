@@ -1,4 +1,13 @@
-const {validateTopics, topics, sendToTopic, Publisher, Subscriber} = require('./messageBroker');
+const {topics, Publisher, Subscriber} = require('./messageBroker');
+
+/*
+supported message format
+{
+    target: string
+    payload: object
+    sendDate: Date
+}
+ */
 
 const publisher = new Publisher(topics.TARGET_TOPIC);
 

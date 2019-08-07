@@ -10,17 +10,13 @@ const options = {
     password: getDependencyEnvVar('REDIS_PWD')
 };
 
-const topic = 'reselbobTopic01';
+const topic = `${faker.lorem.words(1)}_${faker.lorem.words(1)}_${faker.lorem.words(1)}`;
 const client1 = redis.createClient(options);
-let msg_count = 0;
 const client2 = redis.createClient(options);
 
 const util = require('util');
 const setIntervalPromise = util.promisify(setInterval);
 
-
-
-// Most clients probably don't do much on 'subscribe'. This example uses it to coordinate things within one program.
 client1.on('subscribe', function (channel, count) {
     setIntervalPromise(() => {
         const str = faker.lorem.words(3);

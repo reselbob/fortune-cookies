@@ -2,7 +2,6 @@ const redis = require("redis");
 const {promisify} = require('util');
 const uuidv4 = require('uuid/v4');
 
-
 const {getDependencyEnvVar,validateDependencies} = require('../dependencies');
 
 class Publisher {
