@@ -28,7 +28,9 @@
 
 **Step 6**: Generate the Kubernestes pods and services
 
-`cd kubernetes && sh ./generate-k8s-resources.sh`
+`cd kubernetes`
+
+`sh ./generate-k8s-resources.sh`
 
 **Step 7**: Go into the `pingrx` pod so we can inspect the state of of things from inside the Kubernetes cluster
 
@@ -63,3 +65,7 @@ You should see a return value similar to the following:
 **Step 12** Check the `scheduler` pod for activity
 
 `kubectl logs scheduler`
+
+**Step 13** Check the `fortunes` pod for activity
+
+`kubectl logs fortunes`
