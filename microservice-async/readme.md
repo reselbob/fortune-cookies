@@ -16,8 +16,6 @@
 
 `cd fortune-cookies`
 
-`git checkout origin/segment_into_microservices`
-
 **Step 4**: Go the the asynchronous version of Fortune Cookes
 
 `cd microservice-async/`
