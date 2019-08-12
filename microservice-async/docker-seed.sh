@@ -48,6 +48,29 @@ docker push localhost:5000/fortunes
 
 cd ..
 
+# users
+
+cd users
+
+docker build -t users .
+
+docker tag users localhost:5000/users
+
+docker push localhost:5000/users
+
+cd ..
+
+# message-gen
+
+cd message-gen
+
+docker build -t message-gen .
+
+docker tag message-gen localhost:5000/message-gen
+
+docker push localhost:5000/message-gen
+
+cd ..
 
 #List the images in the registry
 

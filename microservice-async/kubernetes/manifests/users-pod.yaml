@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: users
+  labels:
+    app: users
+spec:
+  containers:
+  - name: users
+    image: localhost:5000/users
+    imagePullPolicy: Always
+    ports:
+      - name: app
+        containerPort: 3000
+    env:
+      - name: REDIS_HOST
+        value: "redis-master"
+      - name: REDIS_PORT
+        value: "6379"
+      - name: REDIS_PWD
+        value: "none"
+      - name: USERS_TARGET_TOPIC
+        value: "fc_scheduler_in"
+      - name: USERS_SOURCE_TOPIC
+        value: "fc_users_out"

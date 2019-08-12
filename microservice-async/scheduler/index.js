@@ -11,6 +11,7 @@ supported incoming message format
       phone: string,
       target: string,
       interval: string
+      target: string
 }
 
 Outgoing message format
