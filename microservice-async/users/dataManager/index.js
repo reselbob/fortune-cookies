@@ -3,8 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const _ = require('lodash');
-const axios = require('axios');
-const {getSchedulerApiUrl} = require('../dependencies');
+
 /*
 user = {
   id: uuid
@@ -48,12 +47,6 @@ const addUser = async (user)=>{
     user.id = uuidv4();
     //add the user to data store
     await updateUsers(user);
-
-    //send the user registration to the scheduler
-    const url = getSchedulerApiUrl();
-    //TODO: makes sure the response is good
-    const res = await axios.post(url, user);
-
     return user;
 };
 
