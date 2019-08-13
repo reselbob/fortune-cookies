@@ -1,0 +1,23 @@
+{
+  "name": "messagegen",
+  "version": "1.0.0",
+  "description": "A message generator for microservices-async",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "Bob Reselman <reselbob@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "circular-json": "^0.5.9",
+    "faker": "^4.1.0",
+    "lodash": "^4.17.15",
+    "resel-redis-broker": "^1.0.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "mocha": "^6.2.0",
+    "supertest": "^4.0.2"
+  }
+}

@@ -15,6 +15,7 @@ ScheduleItem = {
   phone: string,
   dob: string,
   interval:string
+  target: string
 }
 */
 
