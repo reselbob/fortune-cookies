@@ -24,7 +24,7 @@ spec:
         value: "fc_fortunes_in"
       - name: USERS_SOURCE_TOPIC
         value: "fc_users_in"
-      - name: SENDERS_SOURCE_TOPIC
+      - name: SENDER_SOURCE_TOPIC
         value: "fc_sender_in"
       - name: SCHEDULER_SOURCE_TOPIC
         value: "fc_scheduler_in"
