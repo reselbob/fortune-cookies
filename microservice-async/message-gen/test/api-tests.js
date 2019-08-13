@@ -40,4 +40,15 @@ describe('Message Gen API Tests: ', () => {
             .catch(done);
     });
 
+    it('Can  GET Random User ', function(done){
+        supertest(server)
+            .get('/random/user')
+            .set('Accept', 'application/json')
+            .then((res) => {
+                expect(res.body).to.be.an('object');
+                done();
+            })
+            .catch(done);
+    });
+
 });

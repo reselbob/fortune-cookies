@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const {validateEnvVars, getDependencyEnvVar, Subscriber, Publisher} = require('./messageBroker');
+const {createFakeUser} =  require('./test/test-utils')
 
 const port = process.env.PORT || 3000;
 
@@ -75,6 +76,14 @@ router.route('/targets')
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 200;
         res.send(JSON.stringify({targets: getTargets()})).end();
+    });
+router.route('/random/user')
+    .get(function (req, res) {
+        const user = createFakeUser();
+        console.log(`Sending random user ${JSON.stringify(user)} GET at ${new Date()}`);
+        res.setHeader('Content-Type', 'application/json');
+        res.statusCode = 200;
+        res.send(JSON.stringify(user)).end();
     });
 
 
