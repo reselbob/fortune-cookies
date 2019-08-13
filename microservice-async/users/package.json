@@ -12,6 +12,7 @@
     "faker": "^4.1.0"
   },
   "dependencies": {
+    "lodash": "^4.17.15",
     "resel-redis-broker": "^1.0.2"
   }
 }
