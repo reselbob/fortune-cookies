@@ -15,9 +15,9 @@ stored in the local Docker registry and out on DockerHub.
 
 ## Setting up the K8S environment
 
-**Step 1**: Go to the Katacoda K8S interactive learning environment for `minikube`
+**Step 1**: Go to the Katacoda K8S interactive learning environment for `kubernetes`
 
-`https://katacoda.com/courses/kubernetes/kubectl-run-containers`
+`https://katacoda.com/courses/kubernetes/playground`
 
 **Step 2**: Clone the GitHub repo that contains the code
 
