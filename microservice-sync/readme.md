@@ -14,7 +14,7 @@ implement an interface that makes the application accessible from outside the Ku
 
 (You might have to login or create an account)
 
-`https://katacoda.com/courses/kubernetes/kubectl-run-containers`
+`https://katacoda.com/courses/kubernetes/playground`
 
 Click the interactive instruction, `minikube start` on the left panel of Katacoda.
 
