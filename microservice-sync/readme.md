@@ -16,8 +16,6 @@ implement an interface that makes the application accessible from outside the Ku
 
 `https://katacoda.com/courses/kubernetes/playground`
 
-Click the interactive instruction, `minikube start` on the left panel of Katacoda.
-
 **Step 2**: Load in this source code
 
 `git clone https://github.com/reselbob/fortune-cookies.git`
