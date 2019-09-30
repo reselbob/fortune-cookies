@@ -14,7 +14,7 @@ implement an interface that makes the application accessible from outside the Ku
 
 (You might have to login or create an account)
 
-`https://katacoda.com/courses/kubernetes/playground`
+`https://katacoda.com/javajon/courses/kubernetes-fundamentals/minikube`
 
 **Step 2**: Load in this source code
 
