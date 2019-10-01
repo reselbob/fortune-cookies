@@ -146,7 +146,7 @@ You'll get the following output:
 You' get output similar to the following:
 
 ```text
-pod/testconsumer   1/1     Running   0          87s
+pod/testconsumer       1/1         Running             0                         87s
 service/testconsumer   NodePort    10.102.23.152    <none>        80:30827/TCP   29s
 ```
 Notice that in this case the NodePort `testconsumer` service is `30827`. You'll probably get a different
