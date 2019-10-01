@@ -1,5 +1,8 @@
 # Getting the Monolithic Version of Fortune Cookies Up and Running
+
 Application the demonstrates a monolithic application to be transformed to a microservices architecture
+
+(View the architecture diagram [here](./architecture.md).)
 
 **Step 1** Go to the Ubuntu Playground on Katacoda
 
