@@ -121,3 +121,76 @@ FACEBOOK is sending a POST at Sun Aug 04 2019 17:05:49 GMT+0000 (UTC) with the b
 FACEBOOK is sending a POST at Sun Aug 04 2019 17:05:50 GMT+0000 (UTC) with the body {"fortune":"You can't live on bread alone."}.
 ```
 **Step 8**: Let's use the test consumer to access the Fortunes service.
+
+First we need to add the TestConsumer pod and service to the cluster.
+
+Let's do the pod:
+
+`kubectl apply -f manifests/testconsumer-pod.yaml`
+
+You'll get the following output:
+
+`pod/testconsumer created`
+
+and then the service:
+
+`kubectl apply -f manifests/testconsumer-service.yaml`
+
+You'll get the following output:
+
+`service/testconsumer created`
+
+**Step 9**: Check to make sure that the pod and service are up and running:
+`kubectl get all | grep testconsumer`
+
+You' get output similar to the following:
+
+```text
+pod/testconsumer   1/1     Running   0          87s
+service/testconsumer   NodePort    10.102.23.152    <none>        80:30827/TCP   29s
+```
+Notice that in this case the NodePort `testconsumer` service is `30827`. You'll probably get a different
+port number, but the important thing to remember is that the NodePort port will be a number over 30000.
+
+**Step 10:** Let's get the IP address of the Master, this will allow us to access the `testconsumer` via the NodePort.
+
+`kubectl cluster-info`
+
+You'll get output similar to the following:
+
+```text
+Kubernetes master is running at https://172.17.0.35:8443
+KubeDNS is running at https://172.17.0.35:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+```
+In this case, the IP address of the Master is `172.17.0.35`.
+
+**Step 11:** Let's `curl` against the Master IP and the NodePort
+
+`curl 172.17.0.35:30827`
+
+You'll get a fortune as the output, like so:
+
+`The best things come in small packages`
+
+***Accessing the `testconsumer` using the via KataCoda HTTP.***
+
+Katacoda has a feature that allow you to access a port that exposed from the cluster via HTTP. The following 
+illustrations show you how to bring up the web page, enter the NodePort IP and see the output.
+
+**Step 1:** Click the (`+`) sign at the top of the Katacoda terminal window as shown in the figure below:
+
+![plus-sign](./images/kata-01.png)
+
+**Step 2:** Click, `Select port to view on Host 1` as shown in the figure below.
+
+![click-menu](./images/kata-02.png)
+
+**Step 3:** You will be taken to a web page into which you will enter the NodePort in a small text box as shown in the
+figure below:
+
+![port-entry](./images/kata-03.png)
+
+**Step 4:** At this point you'll be bound to the Node.js web server that backing the `testconsumer` service. Just refresh
+the web page to get a new fortune.
+
+![wep-page](./images/kata-04.png)
