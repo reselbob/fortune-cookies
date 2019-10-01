@@ -13,4 +13,3 @@ spec:
     ports:
       - name: app
         containerPort: 80
-    imagePullPolicy: Always

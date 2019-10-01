@@ -38,7 +38,7 @@ const onSenderMessageReceived = async (channel, message) => {
     obj.result = rslt;
 
     console.log(JSON.stringify(obj));
-}
+};
 
 
 //----- fortunes

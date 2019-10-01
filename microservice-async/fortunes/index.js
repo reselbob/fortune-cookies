@@ -26,7 +26,7 @@ const onMessageReceived = async (channel, message) => {
     console.log(`[SENDING FORTUNE], ${msg}  from channel, ${channel} to ${targetChannel} at ${new Date()}`);
     await publisher.publish(msg);
     console.log(`[SENT FORTUNE], ${msg}  from channel, ${channel} to ${targetChannel} at ${new Date()}`);
-}
+};
 
 
 

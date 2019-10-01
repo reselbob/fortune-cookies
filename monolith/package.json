@@ -1,4 +1,4 @@
-p{
+{
   "license": "MIT",
   "name": "fortune-cookies",
   "main": "server.js",
