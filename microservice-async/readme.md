@@ -1,5 +1,7 @@
 # Setting Up the Asynchronous Version of the Fortune-Cookies MOA to Run Under Kubernetes
 
+(View the architecture diagram [here](architecture.md).)
+
 The purpose of the version of Fortune Cookies is to provide hands-on experience creating a completely event driven MOA
 under Kubernetes. The project uses `redis` as the backing service for Message Brokerage.
 

@@ -2,6 +2,8 @@
 
 ## (MOA = Microservices Oriented Architecture)
 
+View the architecture diagram [here](architecture.md).
+
 ---- 
 
 Before you start, please be advised that the MOA is running inside a Kubernetes cluster. The current state of the code is that the microservices are running
