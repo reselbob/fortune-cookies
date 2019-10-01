@@ -172,9 +172,9 @@ You'll get a fortune as the output, like so:
 
 `The best things come in small packages`
 
-***Accessing the `testconsumer` using the via KataCoda HTTP.***
+***--*** Accessing the `testconsumer` using the via KataCoda HTTP.***--***
 
-Katacoda has a feature that allow you to access a port that exposed from the cluster via HTTP. The following 
+Katacoda has a feature that allow you to access a web page that's bound to port that's exposed from the cluster via NodePort. The following 
 illustrations show you how to bring up the web page, enter the NodePort IP and see the output.
 
 **Step 1:** Click the (`+`) sign at the top of the Katacoda terminal window as shown in the figure below:
