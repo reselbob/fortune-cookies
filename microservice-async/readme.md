@@ -83,14 +83,14 @@ You should see a return value similar to the following:
 
 **Step 14** Check the `sender` pod for activity
 
-`kubectl logs sender`
+`kubectl logs sender -f`
 
 **Step 15** Check the `scheduler` pod for activity
 
-`kubectl logs scheduler`
+`kubectl logs scheduler -f`
 
 **Step 16** Check the `fortunes` pod for activity
 
-`kubectl logs fortunes`
+`kubectl logs fortunes -f`
 
 **CONGRATULATION!**

@@ -81,7 +81,7 @@ users        ClusterIP   10.104.217.252   <none>        80/TCP    90s
 **Step 7**: Wait about 10 seconds for the MOA to warm up and then check the logs of some
 target pods
 
-`kubectl logs sms`
+`kubectl logs sms -f`
 
 You should see output similar to the following:
 
@@ -97,7 +97,7 @@ SMS is sending a POST at Sun Aug 04 2019 17:04:33 GMT+0000 (UTC) with the body {
 SMS is sending a POST at Sun Aug 04 2019 17:04:33 GMT+0000 (UTC) with the body {"fortune":"Honesty is the best policy."}.
 ```
 
-`kubectl logs twitter`
+`kubectl logs twitter -f`
 
 You should see output similar to the following:
 
@@ -110,7 +110,7 @@ TWITTER is sending a POST at Sun Aug 04 2019 17:05:24 GMT+0000 (UTC) with the bo
 TWITTER is sending a POST at Sun Aug 04 2019 17:05:25 GMT+0000 (UTC) with the body {"fortune":"Procrastination is the thief of time."}.
 ```
 
-`kubectl logs facebook`
+`kubectl logs facebook -f`
 
 You should see output similar to the following:
 
