@@ -29,7 +29,6 @@ const getFortune = async () => {
     }else{
         console.log(`The response data for Sender.getFortune is ${JSON.stringify(res.data)}`);
     }
-
     return res.data;
 };
 
