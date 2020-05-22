@@ -1,4 +1,11 @@
 import { Nullable } from "./../types/nullable.ts";
+import {
+  Producer,
+  Subscriber,
+  IMessengerConfig,
+  Messenger,
+  IMessageBrokerConfig,
+} from "./../messaging/mod.ts";
 
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
 
@@ -18,6 +25,7 @@ interface IAuctionConfig {
   widthInPx?: number;
   durationInSecs?: number;
   minimumBidAmount: number;
+  messagingConfig: IMessengerConfig;
 }
 
 interface IAuction extends IAuctionConfig {
@@ -62,8 +70,9 @@ interface IInventoryItem {
   duration: number;
 }
 
-class Auction implements IAuction {
+class Auction extends Messenger implements IAuction {
   constructor(config: IAuctionConfig) {
+    super(config.messagingConfig);
     this.id = v4.generate();
     this.description = config.description;
     this.startDate = config.startDate;
@@ -75,7 +84,10 @@ class Auction implements IAuction {
     this.minimumBidAmount = config.minimumBidAmount || 0;
     this.bids = new Array<IBid>();
     this.highBid = null;
+    this.messagingConfig = config.messagingConfig;
+    this.InitializeAsync();
   }
+  public messagingConfig: IMessengerConfig;
   public id: string;
   public description: string;
   public startDate: Date;
@@ -87,6 +99,19 @@ class Auction implements IAuction {
   public minimumBidAmount: number;
   public highBid: Nullable<IBid>;
   public bids: Array<IBid>;
+
+  private InitializeAsync = async () => {
+    console.log('Sending start message');
+    await this.producer.publish(this.outTopic, "started");
+    console.log('Sent start message');
+
+    console.log('Saving data');
+    //TODO save initialization data
+    console.log('Saved data');
+
+    }
 }
+
+
 
 export { IAuctionConfig, IAuction, Auction };

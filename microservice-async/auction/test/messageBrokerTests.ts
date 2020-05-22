@@ -18,7 +18,12 @@ const port = Deno.env.get("REDIS_PORT") || 6379;
 const host = Deno.env.get("REDIS_HOST") || "localhost";
 const pwd = Deno.env.get("REDIS_PWD") || "none";
 
-
+function cleanup(resouces: Deno.ResourceMap) : void {
+  const { close } = Deno;
+  for (let prop in resouces) {
+    close(Number(prop));
+ }
+}
 
 Deno.test({
     name: "PubSub test",
@@ -46,9 +51,14 @@ Deno.test({
         await pub.publish(mychannel, msg);
         await delay(200);
       }
+
+      //const { resources} = Deno;
+      //cleanup(resources())
+ 
+
     },
-    sanitizeResources: false,
-    sanitizeOps: false,
+    sanitizeResources: true,
+    sanitizeOps: true,
   });
 
   Deno.test({
@@ -76,6 +86,6 @@ Deno.test({
         await delay(200);
       }
     },
-    sanitizeResources: false,
-    sanitizeOps: false,
+    sanitizeResources: true,
+    sanitizeOps: true,
   });

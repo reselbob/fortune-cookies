@@ -16,19 +16,8 @@ class Broker {
 
 class Subscriber extends Broker {
   constructor(config: IMessageBrokerConfig) {
-    super(config);
-    //this.LoadAsync(config);
+    super(config);s
   }
-
-  private LoadAsync = async (config: IMessageBrokerConfig) => {
-    if (!config.host || !config.port) {
-      throw new Error(
-        `Broker initialization error. host=${config.host}, port=${config.port}`,
-      );
-    }
-    this.broker = await connect({ hostname: config.host, port: config.port });
-    console.log("Broker connected");
-  };
 
   public async subscribe(
     channel: string,
@@ -45,7 +34,7 @@ class Subscriber extends Broker {
     const sub = await this.broker.subscribe(channel);
     (async function () {
       for await (const { channel, message } of sub.receive()) {
-        // on message
+        //on message
         messageHandler(message);
       }
     })();
@@ -58,7 +47,7 @@ class Producer extends Broker {
     super(config);
   }
 
-  public async publish(message: string, channel: string) {
+  public async publish(channel: string, message: string, ) {
     if(!this.broker){
 
     }
