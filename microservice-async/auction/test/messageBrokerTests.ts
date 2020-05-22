@@ -2,7 +2,7 @@ import {
   Producer,
   Subscriber,
   IMessageBrokerConfig,
-} from "./../messageBroker/mod.ts";
+} from "./../messaging/mod.ts";
 import {
   assertEquals,
   assertStrContains,
