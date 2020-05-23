@@ -13,8 +13,8 @@ import {
 class Messenger{
     public inTopic: string;
     public outTopic: string;
-    protected producer: Producer
-    protected subscriber: Subscriber
+    public producer: Producer
+    public subscriber: Subscriber
     constructor(messengerConfig: IMessengerConfig){
         this.inTopic = v4.generate();
         this.outTopic = v4.generate();

@@ -16,7 +16,7 @@ class Broker {
 
 class Subscriber extends Broker {
   constructor(config: IMessageBrokerConfig) {
-    super(config);s
+    super(config);
   }
 
   public async subscribe(

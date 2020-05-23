@@ -32,6 +32,11 @@ interface IAuction extends IAuctionConfig {
   id: string;
   highBid: Nullable<IBid>;
   bids: Array<IBid>;
+  inTopic:string;
+  outTopic: string;
+  producer: Producer;
+  subscriber: Subscriber;
+  InitializeAsync(): Promise<void>
 }
 
 interface IWinningBid extends IBid {
@@ -100,7 +105,7 @@ class Auction extends Messenger implements IAuction {
   public highBid: Nullable<IBid>;
   public bids: Array<IBid>;
 
-  private InitializeAsync = async () => {
+  public InitializeAsync = async () => {
     console.log('Sending start message');
     await this.producer.publish(this.outTopic, "started");
     console.log('Sent start message');
@@ -112,6 +117,4 @@ class Auction extends Messenger implements IAuction {
     }
 }
 
-
-
-export { IAuctionConfig, IAuction, Auction };
+export { IAuctionConfig, IAuction, Auction, AssetClass };
