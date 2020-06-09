@@ -2,9 +2,11 @@ import { Nullable } from "./../types/nullable.ts";
 import {
   Producer,
   Subscriber,
-  IMessengerConfig,
   Messenger,
   IMessageBrokerConfig,
+  IMessageConfig,
+  Message,
+  AuctionEvent,
 } from "./../messaging/mod.ts";
 
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
@@ -25,18 +27,18 @@ interface IAuctionConfig {
   widthInPx?: number;
   durationInSecs?: number;
   minimumBidAmount: number;
-  messagingConfig: IMessengerConfig;
+  messagingConfig: IMessageBrokerConfig;
 }
 
 interface IAuction extends IAuctionConfig {
   id: string;
   highBid: Nullable<IBid>;
   bids: Array<IBid>;
-  inTopic:string;
-  outTopic: string;
+  topics: AuctionTopics;
   producer: Producer;
-  subscriber: Subscriber;
-  InitializeAsync(): Promise<void>
+  subscribers: Array<Subscriber>;
+  InitializeAsync(): Promise<void>;
+  createNewAuctionMessage(): Message;
 }
 
 interface IWinningBid extends IBid {
@@ -75,6 +77,18 @@ interface IInventoryItem {
   duration: number;
 }
 
+class AuctionTopics {
+  constructor(id:string){
+    this.AuctionStart = `AUCTION_START_${id}`;
+    this.BidOnAuction = `BID_TO_AUCTION_${id}`;
+    this.SubcribeToAuction = `SUBSCRIBE_TO_AUCTION_${id}`;
+
+  }
+  public AuctionStart: string;
+  public BidOnAuction: string;
+  public SubcribeToAuction: string
+}
+
 class Auction extends Messenger implements IAuction {
   constructor(config: IAuctionConfig) {
     super(config.messagingConfig);
@@ -89,10 +103,12 @@ class Auction extends Messenger implements IAuction {
     this.minimumBidAmount = config.minimumBidAmount || 0;
     this.bids = new Array<IBid>();
     this.highBid = null;
+    this.topics = new AuctionTopics(this.id)
+    this.subscribers = new Array<Subscriber>();
     this.messagingConfig = config.messagingConfig;
     this.InitializeAsync();
   }
-  public messagingConfig: IMessengerConfig;
+  public messagingConfig: IMessageBrokerConfig;
   public id: string;
   public description: string;
   public startDate: Date;
@@ -104,17 +120,43 @@ class Auction extends Messenger implements IAuction {
   public minimumBidAmount: number;
   public highBid: Nullable<IBid>;
   public bids: Array<IBid>;
+  public subscribers: Array<Subscriber>;
+  public topics: AuctionTopics
 
+
+ 
   public InitializeAsync = async () => {
-    console.log('Sending start message');
-    await this.producer.publish(this.outTopic, "started");
-    console.log('Sent start message');
+    const startMessage: string = JSON.stringify(this.createNewAuctionMessage())
+    console.log({ notification: "Sending start message",startMessage});
+    await this.producer.publish(this.topics.AuctionStart, startMessage);
+    const className = this.constructor.name;
 
-    console.log('Saving data');
+    console.log(`Sent start message from class: ${className}`);
+    const pub = new Producer(this.messagingConfig);
+
+    console.log(`Saving data from class: ${className}`);
     //TODO save initialization data
-    console.log('Saved data');
+    console.log(`Saved data from class: ${className}`);
+  };
 
-    }
+  public createNewAuctionMessage(): Message {
+    const payload: Object = {
+      description: "Sample",
+      startDate: this.startDate,
+      endDate: this.endDate,
+      assetClass: this.assetClass,
+      heightInPx: this.heightInPx,
+      widthInPx: this.widthInPx,
+      durationInSecs: this.durationInSecs,
+      minimumBidAmount: this.minimumBidAmount,
+    };
+    const config: IMessageConfig = {
+      auction_id: v4.generate(),
+      event: AuctionEvent.AUCTION_START,
+      payload,
+    };
+    return new Message(config);
+  }
 }
 
 export { IAuctionConfig, IAuction, Auction, AssetClass };

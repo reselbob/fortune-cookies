@@ -75,13 +75,13 @@ Deno.test({
   
       const subscriber: Subscriber = new Subscriber(config);
       const callback = async (message: string) => {
-        console.log({ date: new Date(), message });
+        console.log({ status: 'receiving', message, at: new Date(), });
       };
       const rsub = await subscriber.subscribe(channel, callback);
   
       for(let i: number = 0;i<10; i++){
         const str: string = random.string(5);
-        console.log({message:str});
+        console.log({status: 'sending', message:str});
         await producer.publish(channel, str);
         await delay(200);
       }

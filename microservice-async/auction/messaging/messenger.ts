@@ -4,23 +4,23 @@ import {
     Subscriber,
     IMessageBrokerConfig,
   } from "./mod.ts";
-
+/*
   interface IMessengerConfig extends IMessageBrokerConfig{
       inTopic: string;
       outTopic: string;
   }
-
+*/
 class Messenger{
-    public inTopic: string;
-    public outTopic: string;
+    //public inTopic: string;
+    //public outTopic: string;
     public producer: Producer
-    public subscriber: Subscriber
-    constructor(messengerConfig: IMessengerConfig){
-        this.inTopic = v4.generate();
-        this.outTopic = v4.generate();
+    public subscribers: Array<Subscriber>
+    constructor(messengerConfig: IMessageBrokerConfig){
+        //this.inTopic = v4.generate();
+        //this.outTopic = v4.generate();
         this.producer = new Producer(messengerConfig);
-        this.subscriber = new Subscriber(messengerConfig);
-    } 
+        this.subscribers = new Array<Subscriber>();
+    }
 }
 
-export {Messenger, IMessengerConfig}
+export {Messenger}

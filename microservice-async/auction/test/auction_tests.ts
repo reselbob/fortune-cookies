@@ -3,8 +3,8 @@ import {
   assertStrContains,
 } from "https://deno.land/std/testing/asserts.ts";
 
-import { AuctionFactory } from "../factory/auction_factory.ts";
-import { Auction, IAuctionConfig, AssetClass } from "../factory/auction.ts";
+import { AuctionFactory } from "../auctions/mod.ts";
+import { Auction, IAuctionConfig, AssetClass } from "../auctions/mod.ts";
 import { Random } from "https://deno.land/x/random/Random.js";
 import { IMessageBrokerConfig } from "../messaging/mod.ts";
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
@@ -28,8 +28,6 @@ function createAuctionConfig(): IAuctionConfig {
     messagingConfig: {
       host: "127.0.0.1",
       port: 6379,
-      inTopic: v4.generate(),
-      outTopic: v4.generate(),
     },
   };
   return config;
@@ -41,8 +39,8 @@ Deno.test({
       const config = createAuctionConfig();
       const auction: Auction = AuctionFactory.createAuction(config)
       assertEquals(auction instanceof Auction, true);
-      const json = JSON.stringify(JSON.stringify);
-      console.log(auction);
+      const json = JSON.stringify(auction);
+      console.log(json);
   },
   sanitizeResources: true,
   sanitizeOps: true,
