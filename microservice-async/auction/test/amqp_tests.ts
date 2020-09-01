@@ -1,4 +1,4 @@
-import {connect, AmqpConnection} from "https://deno.land/x/amqp/mod.ts";
+import {connect, AmqpConnection, AmqpChannel} from "https://deno.land/x/amqp/mod.ts";
 import {v4} from "https://deno.land/std/uuid/mod.ts";
 import { delay } from "https://deno.land/std/async/mod.ts";
 
@@ -50,8 +50,6 @@ async function createExchangeSubscriber(exchangeName: string, queue: string, rou
     }catch(err) {
         throw(err);
     }
-        
-
     await channel.consume(
         {queue},
         async (args, props, data) => {
