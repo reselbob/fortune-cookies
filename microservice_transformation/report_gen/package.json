@@ -4,8 +4,16 @@
   "description": "A projecct to demonstrate how to create a microservice that consumes data from a monolith",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha tests"
   },
   "author": "Bob Reselman <reselbob@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "supertest": "^4.0.2"
+  }
 }
