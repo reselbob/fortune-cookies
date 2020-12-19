@@ -1,0 +1,11 @@
+{
+  "name": "report_gen",
+  "version": "0.0.9",
+  "description": "A projecct to demonstrate how to create a microservice that consumes data from a monolith",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Bob Reselman <reselbob@gmail.com>",
+  "license": "MIT"
+}
