@@ -37,7 +37,8 @@ router.route('/')
                 res.json({id: rslt.id, firstName: rslt.firstName, lastName: rslt.lastName, dob: rslt.dob, email:rslt.email });
             })
             .catch(e => {
-                res.error(e);
+                console.error(e);
+                res.status(500).send(JSON.stringify(e))
             });
     })
     .get( async (req, res) => {
