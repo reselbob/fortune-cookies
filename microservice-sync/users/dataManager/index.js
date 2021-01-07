@@ -53,6 +53,12 @@ const addUser = async (user)=>{
     const url = getSchedulerApiUrl();
     //TODO: makes sure the response is good
     const res = await axios.post(url, user);
+    const msg = {
+        message: 'Added user',
+        user,
+        postResponse: res
+    }
+    console.log(`${msg}`);
 
     return user;
 };

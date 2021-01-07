@@ -18,11 +18,19 @@ implement an interface that makes the application accessible from outside the Ku
 
 `https://katacoda.com/javajon/courses/kubernetes-fundamentals/minikube`
 
-**Step 2**: Load in this source code
+**Step 2**: Start `minikube`
+
+`minikube start`
+
+**Step 3**: In a second terminal window, turn on `minikube tunnel`. This will enable `minikube` to support a Kubernetes service of `Type-LoadBalancer`.
+
+`minikube tunnel`
+
+**Step 4**: In the first terminal window, load in this source code
 
 `git clone https://github.com/reselbob/fortune-cookies.git`
 
-**Step 3**: Navigate to the synchronous version of the MOA
+**Step 5**: Navigate to the synchronous version of the MOA
 
 `cd fortune-cookies/microservice-sync/`
 
@@ -63,18 +71,18 @@ users       1/1     Running   0          16s
 You should see output similar to the following:
 
 ```text
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
-email        ClusterIP   10.97.47.100     <none>        80/TCP    92s
-facebook     ClusterIP   10.107.216.185   <none>        80/TCP    92s
-fortunes     ClusterIP   10.97.45.203     <none>        80/TCP    90s
-instagram    ClusterIP   10.98.41.69      <none>        80/TCP    92s
-kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP   8m39s
-linkedin     ClusterIP   10.104.201.201   <none>        80/TCP    91s
-scheduler    ClusterIP   10.98.77.10      <none>        80/TCP    91s
-sender       ClusterIP   10.109.110.42    <none>        80/TCP    91s
-sms          ClusterIP   10.108.136.36    <none>        80/TCP    91s
-twitter      ClusterIP   10.96.206.203    <none>        80/TCP    91s
-users        ClusterIP   10.104.217.252   <none>        80/TCP    90s
+NAME         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+email        ClusterIP      10.96.43.129     <none>        80/TCP         65s
+facebook     ClusterIP      10.106.136.211   <none>        80/TCP         65s
+fortunes     ClusterIP      10.99.243.25     <none>        80/TCP         59s
+instagram    ClusterIP      10.110.147.152   <none>        80/TCP         64s
+kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP        5m8s
+linkedin     ClusterIP      10.102.177.11    <none>        80/TCP         64s
+scheduler    ClusterIP      10.109.117.174   <none>        80/TCP         60s
+sender       ClusterIP      10.98.255.64     <none>        80/TCP         61s
+sms          ClusterIP      10.108.54.16     <none>        80/TCP         63s
+twitter      ClusterIP      10.111.153.196   <none>        80/TCP         62s
+users        LoadBalancer   10.98.16.60      10.98.16.60   80:30375/TCP        ClusterIP   10.104.217.252   <none>        80/TCP    90s
 ```
 
 
