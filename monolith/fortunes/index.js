@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-
+const {saveFortune, getFortunes} = require('../dataManager');
 const loadFortunesSync = ()=>{
     if(!process.env.FORTUNES){
         const arr= [];
@@ -28,4 +28,13 @@ const getFortunes = async ()=>{
     return loadFortunesSync();
 };
 
-module.exports = {getRandomFortune,getFortunes};
+const seed = async () => {
+    const fortunes = loadFortunesSync();
+    fortunes.forEach(fortune => {
+        console.log(`Seeding fortune: ${fortune} at ${new Date()}`)
+        await saveFortune(fortune);
+        console.log(`Seeded fortune: ${fortune} at ${new Date()}`)
+    });
+}
+
+module.exports = {getRandomFortune,getFortunes, seed};

@@ -2,6 +2,8 @@ const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
+
+const {saveUser, getUser, getUsers} = require('../dataManager');
 /*
 user = {
   id: uuid
@@ -56,4 +58,13 @@ const getUsers = async () =>{
     const reslt = await readFileAsync(filespec, 'utf-8');
     return JSON.parse(reslt);
 };
-module.exports = {getUsersSync, addUser, getUsers};
+
+const seed = async () => {
+    const users = getUsersSync();
+    users.forEach(user => {
+        console.log(`Seeding user: ${user} at ${new Date()}`);
+        await saveUser(user);
+        console.log(`Seeded user: ${user} at ${new Date()}`);
+    });
+}
+module.exports = {getUsersSync, addUser, getUsers, seed};
