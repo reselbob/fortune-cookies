@@ -55,13 +55,13 @@ const getUsers = async () =>{
     const readFileAsync = promisify(fs.readFile);
 
     const filespec = path.join(__dirname, dataFileName);
-    const reslt = await readFileAsync(filespec, 'utf-8');
-    return JSON.parse(reslt);
+    const result = await readFileAsync(filespec, 'utf-8');
+    return JSON.parse(result.toString());
 };
 
 const seed = async () => {
     const users = getUsersSync();
-    users.forEach(user => {
+    users.forEach(async (user) =>  {
         console.log(`Seeding user: ${user} at ${new Date()}`);
         await saveUser(user);
         console.log(`Seeded user: ${user} at ${new Date()}`);

@@ -20,6 +20,10 @@ coverage
 # nyc test coverage
 .nyc_output
 
+# Webstorm stuff
+
+.idea
+
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -60,3 +64,6 @@ typings/
 # next.js build output
 .next
 /.vscode/
+/monolith/config/
+/monolith/data/
+/monolith/init/
