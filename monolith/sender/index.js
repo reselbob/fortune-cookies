@@ -1,14 +1,11 @@
-/*
-config = {
-  firstName:string
-  lastName:string
-  userId:string;
-}
- */
-
-
-
-const send = (config, fortune) =>{
+const { saveSentFortune } = require('../dataManager');
+const send = async (config, fortune) =>{
+    const sentFortune = {
+        firstName: config.firstName,
+        lastName: config.firstName,
+        fortune
+    }
     console.log(`Greetings from ${config.firstName} ${config.lastName}: ${fortune}`);
+    await saveSentFortune(sentFortune);
 };
 module.exports = {send};

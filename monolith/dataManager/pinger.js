@@ -16,5 +16,4 @@ const ping = async () => {
     }
     return msg;
 }
-
 module.exports = {ping};

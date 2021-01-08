@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const morgan = require('morgan');
 const {loadScheduleItems, stopScheduleItems,createScheduleItem} = require('./scheduler');
-const {getFortunes} = require('./fortunes');
-const {getUsers, addUser} = require('./users');
+const {getFortunes, seed: fortunesSeed} = require('./fortunes');
+const {getUsers, addUser, seed: usersSeed} = require('./users');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
@@ -98,10 +98,15 @@ router.route('/reports/usage')
 // REGISTER OUR ROUTES -------------------------------
 app.use('/api', router);
 
-
 let globalSchedulerArray;
 
-loadScheduleItems()
+fortunesSeed()
+    .then(result => {
+        return usersSeed();
+    })
+    .then(result =>{
+        return loadScheduleItems()
+    })
     .then(arr => {
         console.log(`Schedule Items loaded at ${new Date()}`);
         globalSchedulerArray = arr;

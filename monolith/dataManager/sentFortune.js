@@ -2,11 +2,20 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 const {config } = require('./config');
 const sequelize = new Sequelize(config);
 
-const Fortune = sequelize.define('Fortune', {
+const SentFortune = sequelize.define('SentFortune', {
     id: {
         type: DataTypes.UUID,
         defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
         primaryKey: true
+    },
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     fortune: {
         type: DataTypes.STRING,
@@ -16,7 +25,5 @@ const Fortune = sequelize.define('Fortune', {
     // Other model options go here
 });
 
-console.log(`Fortune initialized: ${Fortune === sequelize.models.Fortune} at ${new Date()}`);
-module.exports = {Fortune}
-
-
+console.log(`SentFortune initialized: ${SentFortune === sequelize.models.SentFortune} at ${new Date()}`);
+module.exports = {SentFortune}

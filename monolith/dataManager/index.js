@@ -1,12 +1,42 @@
 const {Fortune} = require('./fortunes');
 const {User} = require('./users');
+const {SentFortune} = require('./sentFortune');
 const {ping} = require('./pinger');
+
+const getSentFortune = async (id) => {
+    await SentFortune.sync();
+    return await SentFortune.findAll({
+        where: {
+            id: id
+        }
+    });
+}
+
+const saveSentFortune = async (sentFortune) => {
+    await SentFortune.sync();
+    console.log(`Writing sentFortune ${sentFortune} at ${new Date()}`);
+    const sf = await SentFortune.create({
+        firstName: sentFortune.firstName,
+        lastName: sentFortune.lastName,
+        fortune: sentFortune.fortune
+    }, {fields: ['firstName', 'lastName', 'fortune']});
+    console.log(`Wrote sentFortune ${sentFortune} at ${new Date()} with SentFortune ID ${sf.id}`);
+
+    return sf;
+}
+
+const getSentFortunes = async () => {
+    await SentFortune.sync();
+    const sentFortunes = await SentFortune.findAll();
+    return sentFortunes;
+};
 
 const saveFortune = async (fortune) => {
     await Fortune.sync();
     console.log(`Writing fortune ${fortune} at ${new Date()}`);
-    const f = Fortune.build({fortune});
-    await f.save();
+    const f = await Fortune.create({
+        fortune
+    }, {fields: ['fortune']});
     console.log(`Wrote fortune ${fortune} at ${new Date()} with Fortune ID ${f.id}`);
 
     return f;
@@ -26,7 +56,7 @@ const saveUser = async (user) => {
         email: user.email,
         dob: user.dob,
         interval: user.interval
-    }, { fields: ['firstName','lastName','phone','email','dob', 'interval'] });
+    }, {fields: ['firstName', 'lastName', 'phone', 'email', 'dob', 'interval']});
 // let's assume the default of isAdmin is false
     console.log(`Wrote user ${user} at ${new Date()} with User ID ${u.id}`);
 
@@ -47,7 +77,40 @@ const getUsers = async () => {
 }
 
 const touch = async () => {
-   return await ping();
+    return await ping();
 }
 
-module.exports =  {saveFortune, getFortunes, saveUser, getUser, getUsers, touch}
+const fortunesExist = async () => {
+    let result = true;
+    try {
+        const users = await getFortunes();
+        if (!users || users.length === 0) result = false;
+    } catch (e) {
+        result = false;
+    }
+    return result;
+}
+
+const usersExist = async () => {
+    let result = true;
+    try {
+        const users = await getUsers();
+        if (!users || users.length === 0) result = false;
+    } catch (e) {
+        result = false;
+    }
+    return result;
+}
+module.exports = {
+    saveFortune,
+    getFortunes,
+    saveUser,
+    getUser,
+    getUsers,
+    touch,
+    saveSentFortune,
+    getSentFortunes,
+    getSentFortune,
+    fortunesExist,
+    usersExist
+}
