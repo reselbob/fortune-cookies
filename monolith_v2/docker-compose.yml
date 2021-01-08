@@ -28,7 +28,7 @@ services:
     restart: always
     ports:
       - 8080:8080
-- receiver:
+  receiver:
     image: reselbob/receiver
     restart: always
     ports:
