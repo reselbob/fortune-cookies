@@ -20,8 +20,14 @@ coverage
 # nyc test coverage
 .nyc_output
 
+# Webstorm stuff
+
+.idea
+
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
+
+.idea
 
 # Bower dependency directory (https://bower.io/)
 bower_components
@@ -60,3 +66,6 @@ typings/
 # next.js build output
 .next
 /.vscode/
+/monolith_v2/config/
+/monolith_v2/data/
+/monolith_v2/init/

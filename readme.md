@@ -5,7 +5,7 @@ Fortune Cookies is a educational project meant to demonstrate how to convert a s
 The MOA comes in two versions. One version is synchronous using HTTP calls between web servers. The other version is asynchronous. The asynchronous version
 uses a message broker to transmit messages between each microservice within the application to faciliate application behavior.
 
-The monolith version is [here](monolith).
+The monolith version is [here](monolith_v2).
 
 The synchronous MOA is [here](microservice-sync).
 
