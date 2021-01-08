@@ -32,4 +32,4 @@ services:
     image: reselbob/receiver
     restart: always
     ports:
-      -3030:3030
+      - 3030:3030
