@@ -66,6 +66,6 @@ typings/
 # next.js build output
 .next
 /.vscode/
-/monolith/config/
-/monolith/data/
-/monolith/init/
+/monolith_v2/config/
+/monolith_v2/data/
+/monolith_v2/init/

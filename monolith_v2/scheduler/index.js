@@ -1,6 +1,6 @@
 const CronJob = require('cron').CronJob;
 const {getRandomFortune} = require('../fortunes/index');
-const {getUsersSync} = require('../users/index');
+const {getUsers} = require('../users/index');
 const {send} = require('../sender/index');
 
 /*
@@ -18,7 +18,7 @@ const createScheduleItem = async (config, globalSchedulerArray) => {
     const period = config.period || '* * * * * *';
     const job = new CronJob(period, async function () {
         const obj = await getRandomFortune();
-        send(config, obj.fortune);
+        await send(config, obj.fortune);
     }, null, true, 'America/Los_Angeles');
     job.start();
 
@@ -32,11 +32,7 @@ const createScheduleItem = async (config, globalSchedulerArray) => {
 const loadScheduleItems = async (globalSchedulerArray) => {
     //if one is not provided, it will be created and returned
     const arr = globalSchedulerArray || [];
-
-    if (!Array.isArray(globalSchedulerArray)) {
-
-    }
-    const users = getUsersSync();
+    const users = await getUsers();
     for (const user of users) {
         arr.push(await createScheduleItem(user));
     }

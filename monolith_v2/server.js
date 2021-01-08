@@ -6,9 +6,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const morgan = require('morgan');
-const {loadScheduleItems, stopScheduleItems,createScheduleItem} = require('./scheduler');
-const {getFortunes} = require('./fortunes');
-const {getUsers, addUser} = require('./users');
+const {loadScheduleItems, stopScheduleItems, createScheduleItem} = require('./scheduler');
+const {getFortunes, seed: fortunesSeed} = require('./fortunes');
+const {getUsers, addUser, seed: usersSeed} = require('./users');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
@@ -37,10 +37,10 @@ router.get('/', function (req, res) {
 router.route('/users')
     .post(function (req, res) {
         addUser(req.body)
-            .then(rslt =>{
+            .then(rslt => {
                 return createScheduleItem(rslt, globalSchedulerArray)
             })
-            .then(rslt =>{
+            .then(rslt => {
                 //Clean up the json so as not create a circular issue
                 res.json({id: rslt.id, firstName: rslt.firstName, lastName: rslt.lastName, dob: rslt.dob});
             })
@@ -48,7 +48,7 @@ router.route('/users')
                 res.error(e);
             });
     })
-    .get( async (req, res) => {
+    .get(async (req, res) => {
         const users = await getUsers();
         res.json(users);
     });
@@ -98,10 +98,15 @@ router.route('/reports/usage')
 // REGISTER OUR ROUTES -------------------------------
 app.use('/api', router);
 
-
 let globalSchedulerArray;
 
-loadScheduleItems()
+fortunesSeed()
+    .then(result => {
+        return usersSeed();
+    })
+    .then(result => {
+        return loadScheduleItems()
+    })
     .then(arr => {
         console.log(`Schedule Items loaded at ${new Date()}`);
         globalSchedulerArray = arr;
@@ -109,13 +114,23 @@ loadScheduleItems()
     });
 
 const server = app.listen(port);
-const shutdown = () => {
+const shutdown = (signal) => {
+    console.log(`Shutting down on ${signal}`)
     stopScheduleItems(globalSchedulerArray)
-        .then(() => {
-            console.log(`Server shutting down at ${new Date()}`);
-            server.close()
-        })
-};
+    .then((signal) => {
+        console.log(`Server shutting down at ${new Date()}`);
+        server.close()
+        process.exit(0);
+    })
+}
+
+process.on("SIGTERM", () => {
+    shutdown("SIGTERM");
+});
+
+process.on("SIGINT", () => {
+    shutdown("SIGINT");
+});
 
 console.log(`Fortune Cookies is listening on port: ${port} at ${new Date()}`);
 module.exports = {server, shutdown};
