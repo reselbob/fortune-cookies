@@ -14,47 +14,31 @@ Application the demonstrates a monolithic application to be transformed to a mic
 
 `git clone https://github.com/reselbob/fortune-cookies.git`
 
-**Step 3**: Navigate the the monolithic version of the application
+**Step 3**: Navigate the monolithic_v2 version of the application
 
-`cd fortune-cookies/monolith`
+`cd fortune-cookies/monolith_v2`
 
-**Step 4**: Run the application as a Docker container, first `build` the container image.
+**Step 4**: Install the external dependencies
 
-`docker build -t monolith .`
+`npm install`
 
-(don't forget the period!)
+**Step 5**: In a second terminal window invoke `mariadb` database under `docker-compose`
 
-**Step 5**: Run the container against the image
+`docker-compose up`
 
-`docker run -p 3000:3000 -d  --name fc-monolith monolith`
+**Step 6:** Start the web server
 
-**Step 6:** Do a log dump to see scheduler activity
+`node server.js`
 
-`docker logs --tail 2500 fc-monolith`
-
-You should see some screen chatter similiar to this:
+You should see some screen chatter similar to this:
 
 ```text
-Greetings from Ronny McCullough: Take your wife's first advice.
-Greetings from Antonio Parker: A single penny fairly got is worth a thousand that are not.
-Greetings from Hollis Skiles: He is rich that is satisfied.
-Greetings from Carson Pollich: You are what you eat.
-Greetings from Gianni O'Conner: You can't make a silk purse out of a sow's ear.
-Greetings from Eve Farrell: There's many a slip 'twixt the dock and the ship.
-Greetings from Hardy Brakus: You can't teach a new mouse old clicks.
-Greetings from Arvilla Hoppe: All's fair in love and war.
-Greetings from Remington Bechtelar: Shake the hand before you plough the field.
-Greetings from Bette Collins: A friend in need is a friend indeed.
-Greetings from Laurine Kirlin: A stitch in time saves nine.
-Greetings from Ima Satterfield: Step by step one goes far.
-Greetings from Christine Hodkiewicz: Take your wife's first advice.
-Greetings from Humberto West: The wise man is deceived once but the fool twice.
-Greetings from Addie D'Amore: After dinner rest a while, after supper walk a mile.
+TO BE PROVIDED
 ```
 
 The monolithic version of the application is now up and running.
 
-**Step 6**: Add a user using `curl`
+**Step 6**: In a separate terminal window, add a user using `curl`
 
 `curl -X POST 'http://localhost:3000/api/users' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'DNT: 1' -H 'Origin: http://localhost:3000' --data '{"firstName":"Cool", "lastName":"McCool", "dob":"1979-01-27", "email":"cool.mccool@reallycool.com"}'`
 
@@ -64,20 +48,17 @@ If a user is saved to the system, the user data will be returned with a system a
 
 **Step 7** Execute the following command to see if Cool McCool is active.
 
-`docker logs --tail 2500 fc-monolith | grep McCool`
+```text
+
+TO BE PROVIDED
+
+```
 
 
 Now, when you take a look at the logs again, you will see that Cool McCool is sending fortunes out too with output similar to this:
 
 ```text
-Greetings from Cool McCool: Spare the rod and spoil the child.
-Greetings from Cool McCool: Every man is the architect of his destiny.
-Greetings from Cool McCool: The geek shall inherit the earth.
-Greetings from Cool McCool: A bird in the hand is worth two in the bush.
-Greetings from Cool McCool: If at first you don't succeed, try, try again.
-Greetings from Cool McCool: Listen to the pot calling the kettle black.
-Greetings from Cool McCool: The best of friends must part.
-Greetings from Cool McCool: Up and down like a fiddler's elbow.
-Greetings from Cool McCool: Old friends and old wine are best.
-Greetings from Cool McCool: If you lie down with dogs, you'll get up with fleas.
+
+TO BE PROVIDED
+
 ```
