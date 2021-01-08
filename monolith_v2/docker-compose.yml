@@ -22,6 +22,7 @@ services:
       - "./init:/docker-entrypoint-initdb.d"
       - "./config/my.conf:/etc/mysql/conf.d/config-file.cnf"
       - "./data:/var/lib/mysql:rw"
+      - "./hold:/etc/hold/"
   adminer:
     image: adminer
     restart: always
