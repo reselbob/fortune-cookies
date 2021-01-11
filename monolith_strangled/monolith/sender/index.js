@@ -1,9 +1,8 @@
 //Use the ORM that's encapsulated in the DataManager
 const {saveSentFortune} = require('../dataManager');
 
-
 /*
-Writes the send console and the datasource
+Writes the send console and the data source
  */
 const send = async (config, fortune) => {
     // This is the code that was in force before strangling started
