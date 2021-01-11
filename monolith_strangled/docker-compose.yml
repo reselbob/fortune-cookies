@@ -7,6 +7,8 @@ services:
       FORTUNE_COOKIES_DATASOURCE_HOST: 'mariadb'
     ports:
       - '3000:3000'
+    networks:
+      - fortune_cookies
   report_gen:
     build: ./report_gen
     restart: always
@@ -14,6 +16,8 @@ services:
       REPORT_GEN_DATASOURCE_HOST: 'mariadb'
     ports:
       - '3003:3003'
+    networks:
+     - fortune_cookies
   mariadb:
     image: mariadb
     restart: always
@@ -28,6 +32,8 @@ services:
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
+    networks:
+      - fortune_cookies
     expose:
       # Opens port 3306 on the container
       - '3306'
@@ -42,3 +48,7 @@ services:
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - fortune_cookies
+networks:
+  fortune_cookies:

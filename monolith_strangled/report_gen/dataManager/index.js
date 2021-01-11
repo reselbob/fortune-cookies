@@ -25,9 +25,12 @@ const saveSentFortune = async (sentFortune) => {
 
 const getSentFortunes = async (limit) => {
     const lmt = limit || 10;
+    console.log(`getSendFortunes is getting fortunes at ${new Date}`);
     await SentFortune.sync();
     const sentFortunes = await SentFortune.findAll(lmt);
+    console.log(`getSendFortunes got fortunes at ${new Date}`);
     return sentFortunes;
+
 };
 
 const touch = async () => {

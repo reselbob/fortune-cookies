@@ -5,8 +5,15 @@ const {getSentFortunes} = require('./dataManager');
 const port = process.env.PORT || 3003;
 
 app.get("/", async (req, res) => {
-    const fortunes = await getSentFortunes();
-    res.json(fortunes);
+    try {
+        console.log(`Getting sent fortunes at ${new Date()}`);
+        const fortunes = await getSentFortunes();
+        console.log(`Got sent fortunes at ${new Date()}`);
+        res.json(fortunes);
+    } catch (e) {
+        res.status(500);
+        res.send(e.message).end();
+    }
 });
 
 app.use(express.json());
