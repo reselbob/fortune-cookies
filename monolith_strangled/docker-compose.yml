@@ -13,7 +13,7 @@ services:
     environment:
       REPORT_GEN_DATASOURCE_HOST: 'mariadb'
     ports:
-      - '3000:3000'
+      - '3003:3003'
   mariadb:
     image: mariadb
     restart: always
