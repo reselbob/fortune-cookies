@@ -5,11 +5,15 @@ services:
     restart: always
     environment:
       FORTUNE_COOKIES_DATASOURCE_HOST: 'mariadb'
+    ports:
+      - '3000:3000'
   report_gen:
     build: ./report_gen
     restart: always
     environment:
       REPORT_GEN_DATASOURCE_HOST: 'mariadb'
+    ports:
+      - '3000:3000'
   mariadb:
     image: mariadb
     restart: always
