@@ -6,10 +6,17 @@ const port = process.env.PORT || 3003;
 
 app.get("/", async (req, res) => {
     try {
-        console.log(`Getting sent fortunes at ${new Date()}`);
 
-        const fortunes = await getSentFortunes(req.query.limit);
-        console.log(`Got sent fortunes at ${new Date()}`);
+        let limit;
+
+        try {
+            limit = parseInt(req.query.limit);
+        } catch (e) {
+            console.log(`Request passed a NaN ${req.query.limit} at ${new Date()}`);
+        }
+        console.log(`Getting a request for ${limit} fortunes at ${new Date()}`);
+        const fortunes = await getSentFortunes(limit);
+        console.log(`Got a request for ${limit}  fortunes at ${new Date()}`);
         res.json(fortunes);
     } catch (e) {
         res.status(500);
