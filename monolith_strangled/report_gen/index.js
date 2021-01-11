@@ -7,7 +7,8 @@ const port = process.env.PORT || 3003;
 app.get("/", async (req, res) => {
     try {
         console.log(`Getting sent fortunes at ${new Date()}`);
-        const fortunes = await getSentFortunes();
+
+        const fortunes = await getSentFortunes(req.query.limit);
         console.log(`Got sent fortunes at ${new Date()}`);
         res.json(fortunes);
     } catch (e) {
