@@ -12,7 +12,7 @@ app.get("/", async (req, res) => {
         try {
             limit = parseInt(req.query.limit);
         } catch (e) {
-            console.log(`Request passed a NaN ${req.query.limit} at ${new Date()}`);
+            console.log(`Request passed an erroneous NaN ${req.query.limit} at ${new Date()}`);
         }
         console.log(`Getting a request for ${limit} fortunes at ${new Date()}`);
         const fortunes = await getSentFortunes(limit);
