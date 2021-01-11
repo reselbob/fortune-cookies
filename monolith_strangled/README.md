@@ -1,5 +1,5 @@
 ## Objective
-The objective of this lesson is to create a Strangler Lite pattern against the existing monolithic verion of *Fortune Cookies*. Strangler Lite augments the code in the `sender` component of *Fortune Cookies* so that *Fortune Cookies* that have been sent are emitted from the monolith to an independent, external MariaDB database. Once the data is in the MariaDB database, that data is accessible to any interested service.
+The objective of this lesson is to create a Strangler Lite pattern against the existing monolithic verion of *Fortune Cookies*. Strangler Lite augments the code in the `sender` component of *Fortune Cookies* so that *sent Fortune* that have been sent internall in the monolith are emitted from the application to an independent, external MariaDB database. Once the data is in the MariaDB database, that data is accessible to any interested service.
 
 The project is deployed as Docker containers aggregated under [Docker Compose](https://docs.docker.com/compose/).
 
