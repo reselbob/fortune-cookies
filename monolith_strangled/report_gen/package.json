@@ -11,7 +11,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "sequelize": "^6.3.5",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mariadb": "^2.5.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
