@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
