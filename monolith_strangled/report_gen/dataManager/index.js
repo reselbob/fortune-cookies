@@ -27,7 +27,7 @@ const getSentFortunes = async (limit) => {
     const lmt = limit || 10;
     console.log(`getSendFortunes is getting fortunes at ${new Date}`);
     await SentFortune.sync();
-    const sentFortunes = await SentFortune.findAll(lmt);
+    const sentFortunes = await SentFortune.findAll({limit: lmt});
     console.log(`getSendFortunes got fortunes at ${new Date}`);
     return sentFortunes;
 
