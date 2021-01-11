@@ -54,7 +54,7 @@ Once the deployment is up and running, it will start sending `sentFortunes` into
 * `localhost:3003` is the URL against which `report_gen` is running
 * `?limit=6` is the query parameter the declares the number of records to return. If no value is set to `limit`, the default number of records returned is ``0`.
 
-You'll get output as follows:
+You'll get output similar to the following:
 
 ```
 [
