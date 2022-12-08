@@ -7,9 +7,9 @@
     "url": "git+https://reselbob@github.com/reselbob/fortune-cookies.git"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "cron": "^1.7.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "mariadb": "^2.5.2",
     "morgan": "^1.9.1",
     "mysql": "^2.18.1",
